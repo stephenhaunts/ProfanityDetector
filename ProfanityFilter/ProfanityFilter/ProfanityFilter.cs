@@ -30,7 +30,7 @@ namespace ProfanityFilter
     /// WARNING : This file contains a lot of very offensive terminology. Do not read the content of this source code
     /// file if you are easily offended.
     /// </summary>
-    public class ProfanityFilter// : IProfanityFilter
+    public class ProfanityFilter : IProfanityFilter
     {
         private readonly string[] _wordList =
         {
