@@ -8,26 +8,32 @@ If you are easily offended, then DO NOT open the file called ProfanityList.cs
 
 Example Usage
 
+
 ## Check if a word is classed as a profanity
 
 // Return true is a bad word
-
 var filter = new ProfanityFilter();
-
 Assert.IsTrue(filter.IsProfanity("arsehole"));
 
 // Return false if NOT a naughty word
-
 var filter = new ProfanityFilter();
-
 Assert.IsFalse(filter.IsProfanity("fluffy"));
 
-## Report the first profanity in a string.
+
+## Report the first profanity in a string
 
 // Return the word "shitty" from a sentence.
+var filter = new ProfanityFilter();
+var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb who was a little fucker.");
+Assert.AreEqual("shit", swearWord);
+
+
+## Return list of all profanities in a sentence
 
 var filter = new ProfanityFilter();
+var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
 
-var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb who was a little fucker.");
-
-Assert.AreEqual("shit", swearWord);
+Assert.AreEqual(3, swearList.Count);
+Assert.AreEqual("2 girls 1 cup", swearList[1]);
+Assert.AreEqual("twat", swearList[2]);
+Assert.AreEqual("twatting", swearList[0]);
