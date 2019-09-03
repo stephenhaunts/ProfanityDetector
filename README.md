@@ -11,16 +11,23 @@ Example Usage
 ## Check if a word is classed as a profanity
 
 // Return true is a bad word
+
 var filter = new ProfanityFilter();
+
 Assert.IsTrue(filter.IsProfanity("arsehole"));
 
 // Return false if NOT a naughty word
+
 var filter = new ProfanityFilter();
+
 Assert.IsFalse(filter.IsProfanity("fluffy"));
 
 ## Report the first profanity in a string.
 
 // Return the word "shitty" from a sentence.
+
 var filter = new ProfanityFilter();
+
 var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb who was a little fucker.");
+
 Assert.AreEqual("shit", swearWord);
