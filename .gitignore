@@ -14,3 +14,11 @@ ProfanityFilter/ProfanityFilter/obj/
 ProfanityFilter/.DS_Store
 
 .DS_Store
+
+ProfanityFilter.Tests.Unit/bin/Debug/netcoreapp2.2/
+
+*.dll
+
+ProfanityFilter.Tests.Unit/obj/Debug/netcoreapp2.2/
+
+ProfanityFilter.Tests.Unit/obj/
