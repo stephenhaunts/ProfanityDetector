@@ -155,15 +155,27 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual("twat", swearList[0]);
             Assert.AreEqual("dick", swearList[1]);
         }
-        
+
         [TestMethod]
         public void DetectAllProfanitiesReturns1SwearPhrase()
         {
             var filter = new ProfanityFilter();
-            var swearList = filter.DetectAllProfanities("2 girls 1 cup");
+            var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite video");
             
             Assert.AreEqual(1, swearList.Count);
             Assert.AreEqual("2 girls 1 cup", swearList[0]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesReturns3SwearPhrase()
+        {
+            var filter = new ProfanityFilter();
+            var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
+            
+            Assert.AreEqual(3, swearList.Count);
+            Assert.AreEqual("2 girls 1 cup", swearList[1]);
+            Assert.AreEqual("twat", swearList[2]);
+            Assert.AreEqual("twatting", swearList[0]);
         }
     }
 }

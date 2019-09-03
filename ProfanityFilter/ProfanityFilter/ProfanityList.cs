@@ -1564,6 +1564,7 @@ namespace ProfanityFilter
              "twatlips",
              "twats",
              "twatty",
+             "twatting",
              "twatwaffle",
              "twink",
              "twinkie",
