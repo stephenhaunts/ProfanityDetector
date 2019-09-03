@@ -17,7 +17,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 using System.Collections.ObjectModel;
 
 namespace ProfanityFilter
@@ -25,9 +24,7 @@ namespace ProfanityFilter
     public interface IProfanityFilter
     {
         bool IsProfanity(string word);
-
         string StringContainsFirstProfanity(string sentence);
-
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
     }
 }
