@@ -104,7 +104,7 @@ namespace ProfanityFilter
                 swearList.Add(sentence);
             }
 
-            swearList.AddRange(_wordList.Where(profanity => sentence.Contains(profanity)));
+            swearList.AddRange(_wordList.Where(sentence.Contains));
 
             return new ReadOnlyCollection<string>(swearList.Distinct().ToList());
         }

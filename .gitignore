@@ -22,3 +22,7 @@ ProfanityFilter.Tests.Unit/bin/Debug/netcoreapp2.2/
 ProfanityFilter.Tests.Unit/obj/Debug/netcoreapp2.2/
 
 ProfanityFilter.Tests.Unit/obj/
+
+ProfanityFilter.Tests.Unit/bin/Debug/netcoreapp3.0/
+
+ProfanityFilter/ProfanityFilter/bin/Debug/netstandard2.1/
