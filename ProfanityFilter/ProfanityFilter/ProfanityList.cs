@@ -29,6 +29,9 @@ namespace ProfanityFilter
     {
         private readonly string[] _wordList =
         {
+             "8===D",
+             "8==D",
+             "8=D",
              "2 girls 1 cup",
              "two girls one cup",
              "two girls 1 cup",
