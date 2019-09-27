@@ -28,15 +28,20 @@ namespace ProfanityFilter
     /// <summary>
     /// 
     /// This class will detect profanity and racial slurs contained within some text and return an indication flag.
+    /// All words are treated as case insensitive.
     ///
     /// </summary>
     public partial class ProfanityFilter : IProfanityFilter
     {
         List<string> _profanities;
+        List<string> _whiteList;
 
         public ProfanityFilter()
         {
             _profanities = new List<string>(_wordList);
+            _whiteList = new List<string>();
+
+   
         }
 
         /// <summary>
@@ -129,6 +134,34 @@ namespace ProfanityFilter
             }
 
             _profanities.Add(profanity);            
+        }
+
+        /// <summary>
+        /// Add a word to the profanity whitelist. This means a word that is in the whitelist
+        /// can be ignored. All words are treated as case insensitive.
+        /// </summary>
+        /// <param name="wordToWhitelist">The word that you want to whitelist.</param>
+        public void WhiteListWord(string wordToWhitelist)
+        {
+
+        }
+
+        /// <summary>
+        /// Remove a word from the profanity whitelist. All words are treated as case insensitive.
+        /// </summary>
+        /// <param name="wordToRemove">The word that you want to use</param>
+        /// <returns>True if the word is successfuly removes, False otherwise.</returns>
+        public bool RemoveWhiteList(string wordToRemove)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Remove all words from the whitelist.
+        /// </summary>      
+        public void ClearAllWhiteList()
+        {
+            
         }
     }
 }
