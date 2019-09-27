@@ -26,5 +26,6 @@ namespace ProfanityFilter
         bool IsProfanity(string word);
         string StringContainsFirstProfanity(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
+        void AddProfanity(string profanity);
     }
 }

@@ -18,6 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProfanityFilter;
 
@@ -176,6 +177,24 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual("2 girls 1 cup", swearList[1]);
             Assert.AreEqual("twat", swearList[2]);
             Assert.AreEqual("twatting", swearList[0]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void AddProfanityAddsToListThrowsArgumentNullExceptionForNullProfanity()
+        {
+            var filter = new ProfanityFilter();
+            filter.AddProfanity(null);
+        }
+
+        [TestMethod]
+        public void AddProfanityAddsToList()
+        {
+            var filter = new ProfanityFilter();
+            Assert.IsFalse(filter.IsProfanity("fluffy"));
+
+            filter.AddProfanity("fluffy");
+            Assert.IsTrue(filter.IsProfanity("fluffy"));
         }
     }
 }

@@ -18,6 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -31,6 +32,13 @@ namespace ProfanityFilter
     /// </summary>
     public partial class ProfanityFilter : IProfanityFilter
     {
+        List<string> _profanities;
+
+        public ProfanityFilter()
+        {
+            _profanities = new List<string>(_wordList);
+        }
+
         /// <summary>
         /// Check whether a specific word is in the profanity list.
         /// </summary>
@@ -38,7 +46,7 @@ namespace ProfanityFilter
         /// <returns>True if the word is considered a profanity, False otherwise.</returns>
         public bool IsProfanity(string word)
         {
-            return !string.IsNullOrEmpty(word) && _wordList.Contains(word.ToLower());
+            return !string.IsNullOrEmpty(word) && _profanities.Contains(word.ToLower());
         }
 
         /// <summary>
@@ -56,20 +64,20 @@ namespace ProfanityFilter
             sentence = sentence.ToLower();
             var words = sentence.Split(' ');
 
-            if (_wordList.Contains(sentence))
+            if (_profanities.Contains(sentence))
             {
                 return sentence;
             }
 
             foreach (var profanity in words)
             {
-                if (_wordList.Contains(profanity.ToLower()))
+                if (_profanities.Contains(profanity.ToLower()))
                 {
                     return profanity;
                 }
             }
 
-            foreach (var profanity in _wordList)
+            foreach (var profanity in _profanities)
             {
                 if (sentence.Contains(profanity.ToLower()))
                 {
@@ -97,16 +105,30 @@ namespace ProfanityFilter
             sentence = sentence.Replace(",", "");
 
             var words = sentence.Split(' ');
-            var swearList = words.Where(profanity => _wordList.Contains(profanity)).ToList();
+            var swearList = words.Where(profanity => _profanities.Contains(profanity)).ToList();
 
-            if (_wordList.Contains(sentence))
+            if (_profanities.Contains(sentence))
             {
                 swearList.Add(sentence);
             }
 
-            swearList.AddRange(_wordList.Where(sentence.Contains));
+            swearList.AddRange(_profanities.Where(sentence.Contains));
 
             return new ReadOnlyCollection<string>(swearList.Distinct().ToList());
+        }
+
+        /// <summary>
+        /// Add a custom profanity to the list.
+        /// </summary>
+        /// <param name="profanity">The profanity to add.</param>
+        public void AddProfanity(string profanity)
+        {
+            if (string.IsNullOrEmpty(profanity))
+            {
+                throw new ArgumentNullException(nameof(profanity));
+            }
+
+            _profanities.Add(profanity);            
         }
     }
 }
