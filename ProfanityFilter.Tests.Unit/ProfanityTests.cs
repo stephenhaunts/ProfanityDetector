@@ -19,6 +19,7 @@ SOFTWARE.
 */
 
 using System;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProfanityFilter;
 using ProfanityFilter.Interfaces;
@@ -30,6 +31,8 @@ namespace ProfanityFilter.Tests.Unit
     {
         public class TestWhiteLst : IWhiteList
         {
+            public ReadOnlyCollection<string> List => throw new NotImplementedException();
+
             public void Add(string wordToWhitelist)
             {
                 throw new NotImplementedException();

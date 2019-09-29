@@ -19,6 +19,7 @@ SOFTWARE.
 */
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
@@ -29,6 +30,15 @@ namespace ProfanityFilter
 
         public WhiteList()
         {
+            _whiteList = new List<string>();
+        }
+
+        public ReadOnlyCollection<string> List
+        {
+            get
+            {
+                return new ReadOnlyCollection<string>(_whiteList);
+            }
         }
 
         /// <summary>
@@ -38,7 +48,12 @@ namespace ProfanityFilter
         /// <param name="wordToWhitelist">The word that you want to whitelist.</param>
         public void Add(string wordToWhitelist)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(wordToWhitelist))
+            {
+                throw new ArgumentNullException(nameof(wordToWhitelist));
+            }
+
+            _whiteList.Add(wordToWhitelist);
         }
 
         /// <summary>
@@ -46,7 +61,7 @@ namespace ProfanityFilter
         /// </summary>  
         public void Clear()
         {
-            throw new NotImplementedException();
+            _whiteList.Clear();
         }
 
         /// <summary>
@@ -56,7 +71,12 @@ namespace ProfanityFilter
         /// <returns>True if the word is successfuly removes, False otherwise.</returns>
         public bool Remove(string wordToRemove)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(wordToRemove))
+            {
+                throw new ArgumentNullException(nameof(wordToRemove));
+            }
+
+            return _whiteList.Remove(wordToRemove);
         }
     }
 }

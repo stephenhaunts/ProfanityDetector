@@ -1,4 +1,4 @@
-﻿/*
+/*
 MIT License
 Copyright (c) 2019 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,16 +17,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Collections.ObjectModel;
 
-namespace ProfanityFilter.Interfaces
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProfanityFilter;
+using ProfanityFilter.Interfaces;
+
+namespace ProfanityFilter.Tests.Unit
 {
-    public interface IWhiteList
+    [TestClass]
+    public class WhiteListTests
     {
-        void Add(string wordToWhitelist);
-        bool Remove(string wordToRemove);
-        void Clear();
-        ReadOnlyCollection<string> List { get;  }
+        [TestMethod]
+        public void ConstructorSetsWhiteList()
+        {
+            IProfanityFilter filter = new ProfanityFilter();
+            Assert.IsNotNull(filter.WhiteList);
+        }
     }
 }
