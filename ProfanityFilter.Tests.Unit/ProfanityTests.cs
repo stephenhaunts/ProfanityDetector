@@ -21,12 +21,54 @@ SOFTWARE.
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProfanityFilter;
+using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter.Tests.Unit
 {
     [TestClass]
     public class ProfanityTests
     {
+        public class TestWhiteLst : IWhiteList
+        {
+            public void Add(string wordToWhitelist)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Remove(string wordToRemove)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        [TestMethod]
+        public void ConstructorSetsWhiteList()
+        {
+            IProfanityFilter filter = new ProfanityFilter();
+            Assert.IsNotNull(filter.WhiteList);
+        }
+
+        [TestMethod]
+        public void ConstructorSetsWhiteListThatIsInjectedIn()
+        {
+            IWhiteList whiteList = new TestWhiteLst();
+
+            IProfanityFilter filter = new ProfanityFilter(whiteList);
+            Assert.AreEqual(whiteList, filter.WhiteList);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorThrowsArgumentNullExceptionIfWhiteListIsNull()
+        {
+            _ = new ProfanityFilter(null);
+        }
+
         [TestMethod]
         public void IsProfanityReturnsTrueForSwearWord()
         {

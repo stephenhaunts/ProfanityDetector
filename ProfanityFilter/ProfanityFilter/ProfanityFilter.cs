@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
 {
@@ -34,14 +35,31 @@ namespace ProfanityFilter
     public partial class ProfanityFilter : IProfanityFilter
     {
         List<string> _profanities;
-        List<string> _whiteList;
+        public IWhiteList _whiteList;
+
+        /// <summary>
+        /// Return the white list;
+        /// </summary>
+        public IWhiteList WhiteList => _whiteList;
+
 
         public ProfanityFilter()
         {
             _profanities = new List<string>(_wordList);
-            _whiteList = new List<string>();
+            _whiteList = new WhiteList();
+  
+        }
 
-   
+        public ProfanityFilter(IWhiteList whiteList)
+        {
+            if (whiteList == null)
+            {
+                throw new ArgumentNullException(nameof(whiteList));
+            }
+
+            _profanities = new List<string>(_wordList);
+            _whiteList = whiteList;
+
         }
 
         /// <summary>
@@ -134,34 +152,6 @@ namespace ProfanityFilter
             }
 
             _profanities.Add(profanity);            
-        }
-
-        /// <summary>
-        /// Add a word to the profanity whitelist. This means a word that is in the whitelist
-        /// can be ignored. All words are treated as case insensitive.
-        /// </summary>
-        /// <param name="wordToWhitelist">The word that you want to whitelist.</param>
-        public void WhiteListWord(string wordToWhitelist)
-        {
-
-        }
-
-        /// <summary>
-        /// Remove a word from the profanity whitelist. All words are treated as case insensitive.
-        /// </summary>
-        /// <param name="wordToRemove">The word that you want to use</param>
-        /// <returns>True if the word is successfuly removes, False otherwise.</returns>
-        public bool RemoveWhiteList(string wordToRemove)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Remove all words from the whitelist.
-        /// </summary>      
-        public void ClearAllWhiteList()
-        {
-            
         }
     }
 }

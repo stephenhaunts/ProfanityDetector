@@ -19,7 +19,7 @@ SOFTWARE.
 */
 using System.Collections.ObjectModel;
 
-namespace ProfanityFilter
+namespace ProfanityFilter.Interfaces
 {
     public interface IProfanityFilter
     {
@@ -27,9 +27,6 @@ namespace ProfanityFilter
         string StringContainsFirstProfanity(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
         void AddProfanity(string profanity);
-
-        void WhiteListWord(string wordToWhitelist);
-        bool RemoveWhiteList(string wordToRemove);
-        void ClearAllWhiteList();
+        IWhiteList WhiteList { get; }
     }
 }
