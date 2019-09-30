@@ -198,6 +198,38 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void StringContainsProfanityScunthorpeTest()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("scunthorpe");
+            var swearWord = filter.StringContainsFirstProfanity("I live in scunthorpe and I fucking hate it.");
+
+            Assert.AreEqual("fucking", swearWord);
+        }
+
+        [TestMethod]
+        public void StringContainsProfanityFiltersWithWhiteList()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("shitty");
+
+            var swearWord = filter.StringContainsFirstProfanity("I live in shitty scunthorpe and I fucking hate it.");
+
+            Assert.AreEqual("fucking", swearWord);
+        }
+
+        [TestMethod]
+        public void StringContainsProfanityFiltersPenistone()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("shitty");
+
+            var swearWord = filter.StringContainsFirstProfanity("I live in shitty penistone and I fucking hate it.");
+
+            Assert.AreEqual("fucking", swearWord);
+        }
+
+        [TestMethod]
         public void DetectAllProfanitiesReturnsEmptyListForEmptyInput()
         {
             var filter = new ProfanityFilter();

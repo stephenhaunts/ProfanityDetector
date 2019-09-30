@@ -36,7 +36,7 @@ namespace ProfanityFilter
     public partial class ProfanityFilter : IProfanityFilter
     {
         List<string> _profanities;
-        public IWhiteList _whiteList;
+        readonly IWhiteList _whiteList;
 
         /// <summary>
         /// Return the white list;
@@ -53,13 +53,8 @@ namespace ProfanityFilter
 
         public ProfanityFilter(IWhiteList whiteList)
         {
-            if (whiteList == null)
-            {
-                throw new ArgumentNullException(nameof(whiteList));
-            }
-
             _profanities = new List<string>(_wordList);
-            _whiteList = whiteList;
+            _whiteList = whiteList ?? throw new ArgumentNullException(nameof(whiteList));
 
         }
 
@@ -101,26 +96,27 @@ namespace ProfanityFilter
             sentence = sentence.ToLower();
             var words = sentence.Split(' ');
 
+            List<string> postWhiteList = new List<string>();
+            foreach (string word in words)
+            {
+                if (!_whiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                {
+                    postWhiteList.Add(word);
+                }
+            }
+
             if (_profanities.Contains(sentence))
             {
                 return sentence;
             }
 
-            foreach (var profanity in words)
+            foreach (var profanity in postWhiteList)
             {
                 if (_profanities.Contains(profanity.ToLower()))
                 {
                     return profanity;
                 }
-            }
-
-            foreach (var profanity in _profanities)
-            {
-                if (sentence.Contains(profanity.ToLower()))
-                {
-                    return profanity;
-                }
-            }
+            }           
 
             return string.Empty;
         }
