@@ -25,8 +25,10 @@ namespace ProfanityFilter.Interfaces
     public interface IWhiteList
     {
         void Add(string wordToWhitelist);
+        bool Contains(string wordToCheck);
         bool Remove(string wordToRemove);
         void Clear();
-        ReadOnlyCollection<string> List { get;  }
+        int Count { get; }
+        ReadOnlyCollection<string> ToList { get;  }
     }
 }

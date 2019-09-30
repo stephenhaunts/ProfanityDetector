@@ -20,6 +20,7 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
@@ -33,7 +34,10 @@ namespace ProfanityFilter
             _whiteList = new List<string>();
         }
 
-        public ReadOnlyCollection<string> List
+        /// <summary>
+        /// Return an instance of a read only collection containing whitelist
+        /// </summary>
+        public ReadOnlyCollection<string> ToList
         {
             get
             {
@@ -53,7 +57,37 @@ namespace ProfanityFilter
                 throw new ArgumentNullException(nameof(wordToWhitelist));
             }
 
-            _whiteList.Add(wordToWhitelist);
+            if (!_whiteList.Contains(wordToWhitelist.ToLower(CultureInfo.InvariantCulture)))
+            {
+                _whiteList.Add(wordToWhitelist.ToLower(CultureInfo.InvariantCulture));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wordToCheck"></param>
+        /// <returns></returns>
+        public bool Contains(string wordToCheck)
+        {
+            if (string.IsNullOrEmpty(wordToCheck))
+            {
+                throw new ArgumentNullException(nameof(wordToCheck));
+            }
+
+            return _whiteList.Contains(wordToCheck.ToLower(CultureInfo.InvariantCulture));
+        }
+
+        /// <summary>
+        /// Return the number of items in the whitelist.
+        /// </summary>
+        /// <returns>The number of items in the whitelist.</returns>
+        public int Count
+        {
+            get
+            {
+                return _whiteList.Count;
+            }
         }
 
         /// <summary>
@@ -76,7 +110,7 @@ namespace ProfanityFilter
                 throw new ArgumentNullException(nameof(wordToRemove));
             }
 
-            return _whiteList.Remove(wordToRemove);
+            return _whiteList.Remove(wordToRemove.ToLower(CultureInfo.InvariantCulture));
         }
     }
 }

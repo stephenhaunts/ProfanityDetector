@@ -31,7 +31,7 @@ namespace ProfanityFilter.Tests.Unit
     {
         public class TestWhiteLst : IWhiteList
         {
-            public ReadOnlyCollection<string> List => throw new NotImplementedException();
+            public ReadOnlyCollection<string> ToList => throw new NotImplementedException();
 
             public void Add(string wordToWhitelist)
             {
@@ -41,6 +41,19 @@ namespace ProfanityFilter.Tests.Unit
             public void Clear()
             {
                 throw new NotImplementedException();
+            }
+
+            public bool Contains(string wordToCheck)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int Count
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
             }
 
             public bool Remove(string wordToRemove)
