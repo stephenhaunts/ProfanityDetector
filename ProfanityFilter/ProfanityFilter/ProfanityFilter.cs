@@ -147,10 +147,8 @@ namespace ProfanityFilter
             var postWhiteList = FilterWordListByWhiteList(words);
             List<string> swearList = new List<string>();
 
-            string postWhiteListSentence = ConvertWordListToSentence(postWhiteList);
-
             // Catch whether multi-word profanities are in the white list filtered sentence.
-            AddMultiWordProfanities(swearList, postWhiteListSentence);
+            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
 
             // Deduplicate any partial matches, ie, if the word "twatting" is in a sentence, don't include "twat".
             if (removePartialMatches)
@@ -182,10 +180,8 @@ namespace ProfanityFilter
             var postWhiteList = FilterWordListByWhiteList(words);
             List<string> swearList = new List<string>();
 
-            string postWhiteListSentence = ConvertWordListToSentence(postWhiteList);
-
             // Catch whether multi-word profanities are in the white list filtered sentence.
-            AddMultiWordProfanities(swearList, postWhiteListSentence);
+            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
 
             string censored = sentence;
 
