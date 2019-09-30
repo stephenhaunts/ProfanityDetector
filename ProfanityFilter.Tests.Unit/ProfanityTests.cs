@@ -336,6 +336,27 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void DetectAllProfanitiesForSingleWord()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("cock", true);
+
+            Assert.AreEqual(1, swearList.Count);
+            Assert.AreEqual("cock", swearList[0]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesForEmptyString()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("", true);
+
+            Assert.AreEqual(0, swearList.Count);            
+        }
+
+        [TestMethod]
         public void CensoredStringReturnsStringWithProfanitiesBleepedOut()
         {
             var filter = new ProfanityFilter();
@@ -370,6 +391,29 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual(censored, result);
         }
 
+
+        [TestMethod]
+        public void CensoredStringReturnsEmptyString()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("", '@');
+            var result = "";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithNoCensorship()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("Hello, I am a fish.", '*');
+            var result = "Hello, I am a fish.";
+
+            Assert.AreEqual(censored, result);
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void AddProfanityAddsToListThrowsArgumentNullExceptionForNullProfanity()
@@ -386,6 +430,15 @@ namespace ProfanityFilter.Tests.Unit
 
             filter.AddProfanity("fluffy");
             Assert.IsTrue(filter.IsProfanity("fluffy"));
+        }
+
+        [TestMethod]
+        public void ReturnCountForDetaultProfanityList()
+        {
+            var filter = new ProfanityFilter();
+            int count = filter.Count;
+
+            Assert.AreEqual(count, 1637);
         }
     }
 }

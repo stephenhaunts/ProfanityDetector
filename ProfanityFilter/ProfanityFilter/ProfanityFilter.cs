@@ -59,6 +59,17 @@ namespace ProfanityFilter
         }
 
         /// <summary>
+        /// Return the number of profanities in the system.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return _profanities.Count;
+            }
+        }
+
+        /// <summary>
         /// Check whether a specific word is in the profanity list. IsProfanity will first
         /// check if the word exists on the whitelist. If it is on the whitelist, then false
         /// will be returned.

@@ -31,5 +31,6 @@ namespace ProfanityFilter.Interfaces
         IWhiteList WhiteList { get; }
         string CensorString(string sentence);
         string CensorString(string sentence, char censorCharacter);
+        int Count { get; }
     }
 }
