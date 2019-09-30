@@ -381,6 +381,28 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut3()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("Mary had a little shit lamb who was a little fucker.");
+            var result = "Mary had a little **** lamb who was a little ******.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut4()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a stupid little twat, and you like to blow your load in an alaskan pipeline.");
+            var result = "You are a ****** little ****, and you like to **** **** **** in an ******* ********.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
         public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithDifferentCharacter()
         {
             var filter = new ProfanityFilter();
@@ -438,7 +460,7 @@ namespace ProfanityFilter.Tests.Unit
             var filter = new ProfanityFilter();
             int count = filter.Count;
 
-            Assert.AreEqual(count, 1637);
+            Assert.AreEqual(count, 1636);
         }
 
 
@@ -447,7 +469,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityFilter();
 
-            Assert.AreEqual(1637, filter.Count);
+            Assert.AreEqual(1636, filter.Count);
 
             filter.Clear();
 
@@ -459,11 +481,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityFilter();
 
-            Assert.AreEqual(1637, filter.Count);
+            Assert.AreEqual(1636, filter.Count);
 
             filter.RemoveProfanity("shit");
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1635, filter.Count);
         }
 
         [TestMethod]
@@ -471,11 +493,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityFilter();
 
-            Assert.AreEqual(1637, filter.Count);
+            Assert.AreEqual(1636, filter.Count);
 
             Assert.IsTrue(filter.RemoveProfanity("shit"));
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1635, filter.Count);
         }
 
         [TestMethod]
@@ -483,11 +505,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityFilter();
 
-            Assert.AreEqual(1637, filter.Count);
+            Assert.AreEqual(1636, filter.Count);
 
             Assert.IsFalse(filter.RemoveProfanity("fluffy"));
 
-            Assert.AreEqual(1637, filter.Count);
+            Assert.AreEqual(1636, filter.Count);
         }
     }
 }
