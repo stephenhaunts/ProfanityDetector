@@ -21,6 +21,7 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using ProfanityFilter.Interfaces;
 
@@ -63,13 +64,26 @@ namespace ProfanityFilter
         }
 
         /// <summary>
-        /// Check whether a specific word is in the profanity list.
+        /// Check whether a specific word is in the profanity list. IsProfanity will first
+        /// check if the word exists on the whitelist. If it is on the whitelist, then false
+        /// will be returned.
         /// </summary>
         /// <param name="word">The word to check in the profanity list.</param>
         /// <returns>True if the word is considered a profanity, False otherwise.</returns>
         public bool IsProfanity(string word)
         {
-            return !string.IsNullOrEmpty(word) && _profanities.Contains(word.ToLower());
+            if (string.IsNullOrEmpty(word))
+            {
+                return false;
+            }
+
+            // Check if the word is in the whitelist.
+            if (_whiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+            {
+                return false;
+            }
+
+            return _profanities.Contains(word.ToLower());
         }
 
         /// <summary>

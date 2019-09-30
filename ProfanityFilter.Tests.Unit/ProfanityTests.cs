@@ -122,6 +122,28 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void IsProfanityReturnsFalseForWordOnTheWhiteList()
+        {
+            var filter = new ProfanityFilter();
+            Assert.IsTrue(filter.IsProfanity("shitty"));
+
+            filter.WhiteList.Add("shitty");
+
+            Assert.IsFalse(filter.IsProfanity("shitty"));
+        }
+
+        [TestMethod]
+        public void IsProfanityReturnsFalseForWordOnTheWhiteListWithMixedCase()
+        {
+            var filter = new ProfanityFilter();
+            Assert.IsTrue(filter.IsProfanity("shitty"));
+
+            filter.WhiteList.Add("shitty");
+
+            Assert.IsFalse(filter.IsProfanity("ShiTty"));
+        }
+
+        [TestMethod]
         public void StringContainsProfanityReturnsEmptyStringForEmptyInput()
         {
             var filter = new ProfanityFilter();
