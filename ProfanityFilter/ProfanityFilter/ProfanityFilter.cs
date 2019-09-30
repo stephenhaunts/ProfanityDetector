@@ -105,11 +105,6 @@ namespace ProfanityFilter
                 }
             }
 
-            if (_profanities.Contains(sentence))
-            {
-                return sentence;
-            }
-
             foreach (var profanity in postWhiteList)
             {
                 if (_profanities.Contains(profanity.ToLower()))
