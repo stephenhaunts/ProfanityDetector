@@ -440,5 +440,54 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(count, 1637);
         }
+
+
+        [TestMethod]
+        public void ClearEmptiesProfanityList()
+        {
+            var filter = new ProfanityFilter();
+
+            Assert.AreEqual(1637, filter.Count);
+
+            filter.Clear();
+
+            Assert.AreEqual(0, filter.Count);
+        }
+
+        [TestMethod]
+        public void RemoveDeletesAProfanity()
+        {
+            var filter = new ProfanityFilter();
+
+            Assert.AreEqual(1637, filter.Count);
+
+            filter.RemoveProfanity("shit");
+
+            Assert.AreEqual(1636, filter.Count);
+        }
+
+        [TestMethod]
+        public void RemoveDeletesAProfanityAndReturnsTrue()
+        {
+            var filter = new ProfanityFilter();
+
+            Assert.AreEqual(1637, filter.Count);
+
+            Assert.IsTrue(filter.RemoveProfanity("shit"));
+
+            Assert.AreEqual(1636, filter.Count);
+        }
+
+        [TestMethod]
+        public void RemoveDeletesAProfanityAndReturnsFalseIfProfanityDoesntExist()
+        {
+            var filter = new ProfanityFilter();
+
+            Assert.AreEqual(1637, filter.Count);
+
+            Assert.IsFalse(filter.RemoveProfanity("fluffy"));
+
+            Assert.AreEqual(1637, filter.Count);
+        }
     }
 }

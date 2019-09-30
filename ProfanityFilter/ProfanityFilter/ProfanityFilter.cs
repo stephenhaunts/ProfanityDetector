@@ -211,6 +211,21 @@ namespace ProfanityFilter
             _profanities.Add(profanity);            
         }
 
+        public bool RemoveProfanity(string profanity)
+        {
+            if (string.IsNullOrEmpty(profanity))
+            {
+                throw new ArgumentNullException(nameof(profanity));
+            }
+
+            return _profanities.Remove(profanity.ToLower(CultureInfo.InvariantCulture));
+        }
+
+        public void Clear()
+        {
+            _profanities.Clear();
+        }
+
         private List<string> FilterWordListByWhiteList(string[] words)
         {
             List<string> postWhiteList = new List<string>();
