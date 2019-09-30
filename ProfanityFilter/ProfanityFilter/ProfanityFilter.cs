@@ -48,14 +48,24 @@ namespace ProfanityFilter
         {
             _profanities = new List<string>(_wordList);
             _whiteList = new WhiteList();
-  
+        }
+
+        public ProfanityFilter(string[] profanityList)
+        {
+            _profanities = new List<string>(profanityList);
+            _whiteList = new WhiteList();
+        }
+
+        public ProfanityFilter(List<string> profanityList)
+        {
+            _profanities = profanityList;
+            _whiteList = new WhiteList();
         }
 
         public ProfanityFilter(IWhiteList whiteList)
         {
             _profanities = new List<string>(_wordList);
             _whiteList = whiteList ?? throw new ArgumentNullException(nameof(whiteList));
-
         }
 
         /// <summary>
@@ -131,6 +141,7 @@ namespace ProfanityFilter
         /// For a given sentence, return a list of all the detected profanities.
         /// </summary>
         /// <param name="sentence">The sentence to check for profanities.</param>
+        /// <param name="removePartialMatches">Remove duplicate partial matches.</param>
         /// <returns>A read only list of detected profanities.</returns>
         public ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches)
         {
@@ -205,6 +216,26 @@ namespace ProfanityFilter
             }
 
             _profanities.Add(profanity);            
+        }
+
+        public void AddProfanity(string[] profanityList)
+        {
+            if (profanityList == null)
+            {
+                throw new ArgumentNullException(nameof(profanityList));
+            }
+
+            _profanities.AddRange(profanityList);
+        }
+
+        public void AddProfanity(List<string> profanityList)
+        {
+            if (profanityList == null)
+            {
+                throw new ArgumentNullException(nameof(profanityList));
+            }
+
+            _profanities.AddRange(profanityList);
         }
 
         public bool RemoveProfanity(string profanity)

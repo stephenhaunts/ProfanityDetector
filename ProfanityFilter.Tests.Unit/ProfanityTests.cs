@@ -32,34 +32,11 @@ namespace ProfanityFilter.Tests.Unit
         public class TestWhiteLst : IWhiteList
         {
             public ReadOnlyCollection<string> ToList => throw new NotImplementedException();
-
-            public void Add(string wordToWhitelist)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Clear()
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool Contains(string wordToCheck)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int Count
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public bool Remove(string wordToRemove)
-            {
-                throw new NotImplementedException();
-            }
+            public void Add(string wordToWhitelist) => throw new NotImplementedException();
+            public void Clear() => throw new NotImplementedException();
+            public bool Contains(string wordToCheck) => throw new NotImplementedException();
+            public int Count => throw new NotImplementedException();
+            public bool Remove(string wordToRemove) => throw new NotImplementedException();
         }
 
         [TestMethod]
@@ -76,13 +53,6 @@ namespace ProfanityFilter.Tests.Unit
 
             IProfanityFilter filter = new ProfanityFilter(whiteList);
             Assert.AreEqual(whiteList, filter.WhiteList);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorThrowsArgumentNullExceptionIfWhiteListIsNull()
-        {
-            _ = new ProfanityFilter(null);
         }
 
         [TestMethod]
@@ -437,14 +407,6 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void AddProfanityAddsToListThrowsArgumentNullExceptionForNullProfanity()
-        {
-            var filter = new ProfanityFilter();
-            filter.AddProfanity(null);
-        }
-
-        [TestMethod]
         public void AddProfanityAddsToList()
         {
             var filter = new ProfanityFilter();
@@ -462,7 +424,6 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(count, 1636);
         }
-
 
         [TestMethod]
         public void ClearEmptiesProfanityList()
