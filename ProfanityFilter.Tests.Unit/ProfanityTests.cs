@@ -254,8 +254,8 @@ namespace ProfanityFilter.Tests.Unit
             var swearList = filter.DetectAllProfanities("You are a complete twat and a dick.");
             
             Assert.AreEqual(2, swearList.Count);
-            Assert.AreEqual("twat", swearList[0]);
-            Assert.AreEqual("dick", swearList[1]);
+            Assert.AreEqual("twat", swearList[1]);
+            Assert.AreEqual("dick", swearList[0]);
         }
         
         [TestMethod]
@@ -265,8 +265,8 @@ namespace ProfanityFilter.Tests.Unit
             var swearList = filter.DetectAllProfanities("You are a complete tWat and a DiCk.");
             
             Assert.AreEqual(2, swearList.Count);
-            Assert.AreEqual("twat", swearList[0]);
-            Assert.AreEqual("dick", swearList[1]);
+            Assert.AreEqual("twat", swearList[1]);
+            Assert.AreEqual("dick", swearList[0]);
         }
 
         [TestMethod]
@@ -286,9 +286,88 @@ namespace ProfanityFilter.Tests.Unit
             var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
             
             Assert.AreEqual(3, swearList.Count);
-            Assert.AreEqual("2 girls 1 cup", swearList[1]);
-            Assert.AreEqual("twat", swearList[2]);
-            Assert.AreEqual("twatting", swearList[0]);
+            Assert.AreEqual("2 girls 1 cup", swearList[0]);
+            Assert.AreEqual("twat", swearList[1]);
+            Assert.AreEqual("twatting", swearList[2]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesReturns2SwearPhraseBecauseOfMatchDeduplication()
+        {
+            var filter = new ProfanityFilter();
+            var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video", true);
+
+            Assert.AreEqual(2, swearList.Count);
+            Assert.AreEqual("2 girls 1 cup", swearList[0]);            
+            Assert.AreEqual("twatting", swearList[1]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesScunthorpe()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("scunthorpe");
+            filter.WhiteList.Add("penistone");
+
+            var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.");
+            
+            Assert.AreEqual(6, swearList.Count);
+            Assert.AreEqual("cock", swearList[0]);
+            Assert.AreEqual("fuc", swearList[1]);
+            Assert.AreEqual("fuck", swearList[2]);
+            Assert.AreEqual("fuckin", swearList[3]);
+            Assert.AreEqual("fucking", swearList[4]);
+            Assert.AreEqual("shit", swearList[5]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesScunthorpeWithDuplicatesTurnedOff()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("scunthorpe");
+            filter.WhiteList.Add("penistone");
+
+            var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", true);
+
+            Assert.AreEqual(3, swearList.Count);
+            Assert.AreEqual("cock", swearList[0]);            
+            Assert.AreEqual("fucking", swearList[1]);
+            Assert.AreEqual("shit", swearList[2]);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("scunthorpe");
+            filter.WhiteList.Add("penistone");
+
+            var censored = filter.CensorString("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", '*');
+            var result = "I ******* live in Scunthorpe and it is a **** place to live. I would much rather live in penistone you great big **** ****.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut2()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("2 girls 1 cup, is my favourite twatting video.");
+            var result = "* ***** * ***, is my favourite ******** video.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithDifferentCharacter()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("2 girls 1 cup, is my favourite twatting video.", '@');
+            var result = "@ @@@@@ @ @@@, is my favourite @@@@@@@@ video.";
+
+            Assert.AreEqual(censored, result);
         }
 
         [TestMethod]

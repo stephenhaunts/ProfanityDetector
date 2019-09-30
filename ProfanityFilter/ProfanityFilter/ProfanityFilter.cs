@@ -94,16 +94,11 @@ namespace ProfanityFilter
             }
 
             sentence = sentence.ToLower();
-            var words = sentence.Split(' ');
+            sentence = sentence.Replace(".", "");
+            sentence = sentence.Replace(",", "");
 
-            List<string> postWhiteList = new List<string>();
-            foreach (string word in words)
-            {
-                if (!_whiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
-                {
-                    postWhiteList.Add(word);
-                }
-            }
+            var words = sentence.Split(' ');
+            var postWhiteList = FilterWordListByWhiteList(words);
 
             foreach (var profanity in postWhiteList)
             {
@@ -111,9 +106,14 @@ namespace ProfanityFilter
                 {
                     return profanity;
                 }
-            }           
+            }
 
             return string.Empty;
+        }
+
+        public ReadOnlyCollection<string> DetectAllProfanities(string sentence)
+        {
+            return DetectAllProfanities(sentence, false);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace ProfanityFilter
         /// </summary>
         /// <param name="sentence">The sentence to check for profanities.</param>
         /// <returns>A read only list of detected profanities.</returns>
-        public ReadOnlyCollection<string> DetectAllProfanities(string sentence)
+        public ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches)
         {
             if (string.IsNullOrEmpty(sentence))
             {
@@ -133,16 +133,57 @@ namespace ProfanityFilter
             sentence = sentence.Replace(",", "");
 
             var words = sentence.Split(' ');
-            var swearList = words.Where(profanity => _profanities.Contains(profanity)).ToList();
+            var postWhiteList = FilterWordListByWhiteList(words);
+            List<string> swearList = new List<string>();
 
-            if (_profanities.Contains(sentence))
+            string postWhiteListSentence = ConvertWordListToSentence(postWhiteList);
+
+            // Catch whether multi-word profanities are in the white list filtered sentence.
+            AddMultiWordProfanities(swearList, postWhiteListSentence);
+
+            // Deduplicate any partial matches, ie, if the word "twatting" is in a sentence, don't include "twat".
+            if (removePartialMatches)
             {
-                swearList.Add(sentence);
+                swearList.RemoveAll(x => swearList.Any(y => x != y && y.Contains(x)));
             }
 
-            swearList.AddRange(_profanities.Where(sentence.Contains));
-
             return new ReadOnlyCollection<string>(swearList.Distinct().ToList());
+        }
+
+        public string CensorString(string sentence)
+        {
+            return CensorString(sentence, '*');
+        }
+
+        public string CensorString(string sentence, char censorCharacter)
+        {
+            if (string.IsNullOrEmpty(sentence))
+            {
+                return string.Empty;
+            }
+
+            string noPunctuation = sentence;
+            noPunctuation = noPunctuation.ToLower();
+            noPunctuation = noPunctuation.Replace(".", "");
+            noPunctuation = noPunctuation.Replace(",", "");
+
+            var words = sentence.Split(' ');
+            var postWhiteList = FilterWordListByWhiteList(words);
+            List<string> swearList = new List<string>();
+
+            string postWhiteListSentence = ConvertWordListToSentence(postWhiteList);
+
+            // Catch whether multi-word profanities are in the white list filtered sentence.
+            AddMultiWordProfanities(swearList, postWhiteListSentence);
+
+            string censored = sentence;
+
+            foreach (string word in swearList.OrderByDescending(x => x.Length))
+            {
+                censored = censored.Replace(word, CreateCensoredString(word, censorCharacter));
+            }
+
+            return censored;
         }
 
         /// <summary>
@@ -157,6 +198,59 @@ namespace ProfanityFilter
             }
 
             _profanities.Add(profanity);            
+        }
+
+        private List<string> FilterWordListByWhiteList(string[] words)
+        {
+            List<string> postWhiteList = new List<string>();
+            foreach (string word in words)
+            {
+                if (!_whiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                {
+                    postWhiteList.Add(word);
+                }
+            }
+
+            return postWhiteList;
+        }
+
+        private static string ConvertWordListToSentence(List<string> postWhiteList)
+        {
+            // Reconstruct sentence excluding whitelisted words.
+            string postWhiteListSentence = string.Empty;
+
+            foreach (string w in postWhiteList)
+            {
+                postWhiteListSentence = postWhiteListSentence + w + " ";
+            }
+
+            return postWhiteListSentence;
+        }
+
+        private void AddMultiWordProfanities(List<string> swearList, string postWhiteListSentence)
+        {
+            swearList.AddRange(
+                from string profanity in _profanities
+                where postWhiteListSentence.Contains(profanity)
+                select profanity);
+        }
+
+        private static string CreateCensoredString(string word, char censorCharacter)
+        {
+            string censoredWord = string.Empty;
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] != ' ')
+                {
+                    censoredWord += censorCharacter;
+                }
+                else
+                {
+                    censoredWord += ' ';
+                }
+            }
+
+            return censoredWord;
         }
     }
 }

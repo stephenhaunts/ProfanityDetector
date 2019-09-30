@@ -26,7 +26,10 @@ namespace ProfanityFilter.Interfaces
         bool IsProfanity(string word);
         string StringContainsFirstProfanity(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
+        ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches);
         void AddProfanity(string profanity);
         IWhiteList WhiteList { get; }
+        string CensorString(string sentence);
+        string CensorString(string sentence, char censorCharacter);
     }
 }
