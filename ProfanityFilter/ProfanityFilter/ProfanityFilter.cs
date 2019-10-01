@@ -205,7 +205,7 @@ namespace ProfanityFilter
             return censored;
         }
 
-        public (int, int, string)? IsEnclosedProfanity(string toCheck, string profanity)
+        public (int, int, string)? GetCompleteWord(string toCheck, string profanity)
         {
             if (string.IsNullOrEmpty(toCheck))
             {
@@ -218,43 +218,26 @@ namespace ProfanityFilter
                 var endIndex = startIndex;
                 
                 // Work backwards in string to get to the start of the word.
-                while (true)
+                while (startIndex > 0)
                 {
-                    if (startIndex > 0)
-                    {
-                        if (toCheck[startIndex - 1] != ' ')
-                        {
-                            startIndex -= 1;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    else
+                    if (toCheck[startIndex - 1] == ' ')
                     {
                         break;
                     }
+                    
+                    startIndex -= 1;
+                    
                 }                                           
               
                 // Work forwards to get to the end of the word.
-                while (true)
+                while (endIndex < toCheck.Length)
                 {
-                    if (endIndex < toCheck.Length)
-                    {
-                        if (toCheck[endIndex] != ' ')
-                        {
-                            endIndex += 1;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    else
+                    if (toCheck[endIndex] == ' ')
                     {
                         break;
                     }
+                   
+                    endIndex += 1;                    
                 }                
 
                 var enclosedWord = toCheck.Substring(startIndex, endIndex - startIndex);
