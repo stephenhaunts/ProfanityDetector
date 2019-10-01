@@ -197,6 +197,8 @@ namespace ProfanityFilter
             
 
             StringBuilder censored =  new StringBuilder(sentence);
+            StringBuilder tracker =  new StringBuilder(sentence);
+
 
             foreach (string word in swearList.OrderByDescending(x => x.Length))
             {
@@ -207,21 +209,24 @@ namespace ProfanityFilter
                 {
                     do
                     {
-                        result = GetCompleteWord(censored.ToString(), word);
+                        result = GetCompleteWord(tracker.ToString(), word);
 
                         if (result != null)
                         {
                             if (result.Value.Item3 == word)
-                            {
-                                // censored = censored.Replace(word, CreateCensoredString(word, censorCharacter));
+                            {                                
                                 for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                                 {
                                     censored[i] = censorCharacter;
+                                    tracker[i] = censorCharacter;
                                 }
                             }
                             else
                             {
-                                break;
+                                for (int i = result.Value.Item1; i < result.Value.Item2; i++)
+                                {
+                                    tracker[i] = censorCharacter;
+                                }                               
                             }
                         }
                     } while (result != null);
@@ -258,8 +263,7 @@ namespace ProfanityFilter
                         break;
                     }
                     
-                    startIndex -= 1;
-                    
+                    startIndex -= 1;               
                 }                                           
               
                 // Work forwards to get to the end of the word.

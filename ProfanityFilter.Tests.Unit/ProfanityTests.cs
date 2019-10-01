@@ -394,6 +394,95 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual(censored, result);
         }
 
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithSingleScunthorpe()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("Scunthorpe");
+            var result = "Scunthorpe";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithSingleScunthorpeMixedCase()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("ScUnThOrPe");
+            var result = "ScUnThOrPe";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithSingleScunthorpeMixedCase2()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("ScUnThOrPePeNiStOnE");
+            var result = "ScUnThOrPePeNiStOnE";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithSingleScunthorpeAllLower()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("scunthorpe");
+            var result = "scunthorpe";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringDoubleCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("cunt cunt");
+            var result = "**** ****";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithScunthorpeBasedDoubleCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("scunthorpe cunt");
+            var result = "scunthorpe ****";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithDoubleScunthorpeBasedDoubleCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("scunthorpe scunthorpe cunt");
+            var result = "scunthorpe scunthorpe ****";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithMultiScunthorpeBasedMultiCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("cunt scunthorpe cunt scunthorpe cunt");
+            var result = "**** scunthorpe **** scunthorpe ****";
+
+            Assert.AreEqual(censored, result);
+        }
+
         [TestMethod]
         public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithDifferentCharacter()
         {
