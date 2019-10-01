@@ -25,7 +25,7 @@ namespace ProfanityFilter
     /// WARNING : This file contains a lot of very offensive terminology. Do not read the content of this source code
     /// file if you are easily offended.
     /// </summary>
-    public partial class ProfanityFilter
+    public partial class ProfanityBase
     {
         private readonly string[] _wordList =
         {

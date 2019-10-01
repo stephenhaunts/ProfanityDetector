@@ -29,30 +29,11 @@ namespace ProfanityFilter.Tests.Unit
     [TestClass]
     public class ProfanityTests
     {
-        public class TestWhiteLst : IWhiteList
-        {
-            public ReadOnlyCollection<string> ToList => throw new NotImplementedException();
-            public void Add(string wordToWhitelist) => throw new NotImplementedException();
-            public void Clear() => throw new NotImplementedException();
-            public bool Contains(string wordToCheck) => throw new NotImplementedException();
-            public int Count => throw new NotImplementedException();
-            public bool Remove(string wordToRemove) => throw new NotImplementedException();
-        }
-
         [TestMethod]
         public void ConstructorSetsWhiteList()
         {
             IProfanityFilter filter = new ProfanityFilter();
             Assert.IsNotNull(filter.WhiteList);
-        }
-
-        [TestMethod]
-        public void ConstructorSetsWhiteListThatIsInjectedIn()
-        {
-            IWhiteList whiteList = new TestWhiteLst();
-
-            IProfanityFilter filter = new ProfanityFilter(whiteList);
-            Assert.AreEqual(whiteList, filter.WhiteList);
         }
 
         [TestMethod]
