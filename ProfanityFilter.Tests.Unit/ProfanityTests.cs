@@ -114,92 +114,6 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
-        public void StringContainsProfanityReturnsEmptyStringForEmptyInput()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity(string.Empty);
-            
-            Assert.AreEqual(string.Empty, swearWord);
-        }
-        
-        [TestMethod]
-        public void StringContainsProfanityReturnsEmptyStringForNullInput()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity(null);
-            
-            Assert.AreEqual(string.Empty, swearWord);
-        }
-        
-        [TestMethod]
-        public void StringContainsProfanityReturnsSwearWordForSentenceContainingANaughtyWordForPartialWordMatch()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity("Mary had a little shitty lamb");
-            
-            Assert.AreEqual("shitty", swearWord);
-        }
-        
-        [TestMethod]
-        public void StringContainsProfanityReturnsSwearWordForSentenceContainingANaughtyWordForFullWordMatch()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb");
-            
-            Assert.AreEqual("shit", swearWord);
-        }
-        
-        [TestMethod]
-        public void StringContainsProfanityReturnsFirstSwearWordForSentenceContainingMultipleWearWords()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb who was a little fucker.");
-            
-            Assert.AreEqual("shit", swearWord);
-        }
-        
-        [TestMethod]
-        public void StringContainsProfanityReturnsFirstSwearWordForSentenceContainingMultipleWearWordsForMixedCase()
-        {
-            var filter = new ProfanityFilter();
-            var swearWord = filter.StringContainsFirstProfanity("Mary had a little ShIt lamb who was a little FuCkEr.");
-            
-            Assert.AreEqual("shit", swearWord);
-        }
-
-        [TestMethod]
-        public void StringContainsProfanityScunthorpeTest()
-        {
-            var filter = new ProfanityFilter();
-            filter.WhiteList.Add("scunthorpe");
-            var swearWord = filter.StringContainsFirstProfanity("I live in scunthorpe and I fucking hate it.");
-
-            Assert.AreEqual("fucking", swearWord);
-        }
-
-        [TestMethod]
-        public void StringContainsProfanityFiltersWithWhiteList()
-        {
-            var filter = new ProfanityFilter();
-            filter.WhiteList.Add("shitty");
-
-            var swearWord = filter.StringContainsFirstProfanity("I live in shitty scunthorpe and I fucking hate it.");
-
-            Assert.AreEqual("fucking", swearWord);
-        }
-
-        [TestMethod]
-        public void StringContainsProfanityFiltersPenistone()
-        {
-            var filter = new ProfanityFilter();
-            filter.WhiteList.Add("shitty");
-
-            var swearWord = filter.StringContainsFirstProfanity("I live in shitty penistone and I fucking hate it.");
-
-            Assert.AreEqual("fucking", swearWord);
-        }
-
-        [TestMethod]
         public void DetectAllProfanitiesReturnsEmptyListForEmptyInput()
         {
             var filter = new ProfanityFilter();
@@ -255,10 +169,9 @@ namespace ProfanityFilter.Tests.Unit
             var filter = new ProfanityFilter();
             var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
             
-            Assert.AreEqual(3, swearList.Count);
+            Assert.AreEqual(2, swearList.Count);
             Assert.AreEqual("2 girls 1 cup", swearList[0]);
-            Assert.AreEqual("twat", swearList[1]);
-            Assert.AreEqual("twatting", swearList[2]);
+            Assert.AreEqual("twatting", swearList[1]);
         }
 
         [TestMethod]
@@ -281,13 +194,11 @@ namespace ProfanityFilter.Tests.Unit
 
             var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.");
             
-            Assert.AreEqual(6, swearList.Count);
-            Assert.AreEqual("cock", swearList[0]);
-            Assert.AreEqual("fuc", swearList[1]);
-            Assert.AreEqual("fuck", swearList[2]);
-            Assert.AreEqual("fuckin", swearList[3]);
-            Assert.AreEqual("fucking", swearList[4]);
-            Assert.AreEqual("shit", swearList[5]);
+            Assert.AreEqual(4, swearList.Count);
+            Assert.AreEqual("fucking", swearList[0]);
+            Assert.AreEqual("cock", swearList[1]);            
+            Assert.AreEqual("fuck", swearList[2]);            
+            Assert.AreEqual("shit", swearList[3]);
         }
 
         [TestMethod]
@@ -300,11 +211,91 @@ namespace ProfanityFilter.Tests.Unit
             var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", true);
 
             Assert.AreEqual(3, swearList.Count);
-            Assert.AreEqual("cock", swearList[0]);            
-            Assert.AreEqual("fucking", swearList[1]);
+            Assert.AreEqual("cock", swearList[1]);            
+            Assert.AreEqual("fucking", swearList[0]);
             Assert.AreEqual("shit", swearList[2]);
         }
 
+        [TestMethod]
+        public void DetectAllProfanitiesScunthorpeWithDuplicatesTurnedOffAndNoWhiteList()
+        {
+            var filter = new ProfanityFilter();            
+
+            var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", true);
+
+            Assert.AreEqual(3, swearList.Count);
+            Assert.AreEqual("cock", swearList[1]);
+            Assert.AreEqual("fucking", swearList[0]);
+            Assert.AreEqual("shit", swearList[2]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesMultipleScunthorpes()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("Scunthorpe Scunthorpe", true);
+
+            Assert.AreEqual(0, swearList.Count);           
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesMultipleScunthorpesSingleCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("Scunthorpe cunt Scunthorpe", true);
+
+            Assert.AreEqual(1, swearList.Count);
+            Assert.AreEqual("cunt", swearList[0]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesMultipleScunthorpesMultiCunt()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("Scunthorpe cunt Scunthorpe cunt", true);
+
+            Assert.AreEqual(1, swearList.Count);
+            Assert.AreEqual("cunt", swearList[0]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesScunthorpePenistone()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("ScUnThOrPePeNiStOnE", true);
+
+            Assert.AreEqual(0, swearList.Count);           
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesScunthorpePenistoneOneKnob()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("ScUnThOrPePeNiStOnE KnOb", true);
+
+            Assert.AreEqual(1, swearList.Count);
+            Assert.AreEqual("knob", swearList[0]);
+        }
+
+        [TestMethod]
+        public void DetectAllProfanitiesLongerSentence()
+        {
+            var filter = new ProfanityFilter();
+
+            var swearList = filter.DetectAllProfanities("You are a stupid little twat, and you like to blow your load in an alaskan pipeline.", true);
+
+            Assert.AreEqual(4, swearList.Count);
+            Assert.AreEqual("alaskan pipeline", swearList[0]);
+            Assert.AreEqual("blow your load", swearList[1]);
+            Assert.AreEqual("stupid", swearList[2]);
+            Assert.AreEqual("twat", swearList[3]);
+        }
+        
         [TestMethod]
         public void DetectAllProfanitiesForSingleWord()
         {

@@ -103,36 +103,6 @@ namespace ProfanityFilter
             return _profanities.Contains(word.ToLower());
         }
 
-        /// <summary>
-        /// For a given sentence, report the first profanity detected in the sentence.
-        /// </summary>
-        /// <param name="sentence">The sentence to check for profanities.</param>
-        /// <returns>The profanity that has been detected.</returns>
-        public string StringContainsFirstProfanity(string sentence)
-        {
-            if (string.IsNullOrEmpty(sentence))
-            {
-                return string.Empty;
-            }
-
-            sentence = sentence.ToLower();
-            sentence = sentence.Replace(".", "");
-            sentence = sentence.Replace(",", "");
-
-            var words = sentence.Split(' ');
-            var postWhiteList = FilterWordListByWhiteList(words);
-
-            foreach (var profanity in postWhiteList)
-            {
-                if (_profanities.Contains(profanity.ToLower()))
-                {
-                    return profanity;
-                }
-            }
-
-            return string.Empty;
-        }
-
         public ReadOnlyCollection<string> DetectAllProfanities(string sentence)
         {
             return DetectAllProfanities(sentence, false);
@@ -166,9 +136,55 @@ namespace ProfanityFilter
             if (removePartialMatches)
             {
                 swearList.RemoveAll(x => swearList.Any(y => x != y && y.Contains(x)));
+            }            
+
+            return new ReadOnlyCollection<string>(FilterSwearListForCompleteWordsOnly(sentence, swearList).Distinct().ToList());
+        }
+
+        private List<string> FilterSwearListForCompleteWordsOnly(string sentence, List<string> swearList)
+        {
+            List<string> filteredSwearList = new List<string>();
+            StringBuilder tracker = new StringBuilder(sentence);
+            foreach (string word in swearList.OrderByDescending(x => x.Length))
+            {
+                (int, int, string)? result = (0, 0, "");
+                var multiWord = word.Split(' ');
+
+                if (multiWord.Length == 1)
+                {
+                    do
+                    {
+                        result = GetCompleteWord(tracker.ToString(), word);
+
+                        if (result != null)
+                        {
+                            if (result.Value.Item3 == word)
+                            {
+                                filteredSwearList.Add(word);
+                                for (int i = result.Value.Item1; i < result.Value.Item2; i++)
+                                {
+
+                                    tracker[i] = '*';
+                                }
+                                break;
+                            }
+
+                            for (int i = result.Value.Item1; i < result.Value.Item2; i++)
+                            {
+
+                                tracker[i] = '*';
+                            }                           
+                        }
+                    } while (result != null);
+                }
+                else
+                {
+                    filteredSwearList.Add(word);
+                    tracker.Replace(word, " ");
+                }
             }
 
-            return new ReadOnlyCollection<string>(swearList.Distinct().ToList());
+            return filteredSwearList;
         }
 
         public string CensorString(string sentence)
