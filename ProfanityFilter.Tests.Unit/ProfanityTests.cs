@@ -122,7 +122,18 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual("twat", swearList[1]);
             Assert.AreEqual("dick", swearList[0]);
         }
-        
+
+        [TestMethod]
+        public void DetectAllProfanitiesReturns2SwearWordsWithCommas()
+        {
+            var filter = new ProfanityFilter();
+            var swearList = filter.DetectAllProfanities("You are, a complete twat, and a @dick:");
+
+            Assert.AreEqual(2, swearList.Count);
+            Assert.AreEqual("twat", swearList[1]);
+            Assert.AreEqual("dick", swearList[0]);
+        }
+
         [TestMethod]
         public void DetectAllProfanitiesReturns2SwearWordsforMixedCase()
         {
