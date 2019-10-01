@@ -651,6 +651,17 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void GetCompleteWordReturnsCuntFromSingleWordStringDoubleCunt()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.GetCompleteWord("cunt cunt", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 0);
+            Assert.AreEqual(result.Value.Item2, 4);
+            Assert.AreEqual(result.Value.Item3, "cunt");
+        }
+
+        [TestMethod]
         public void GetCompleteWordReturnsNullIfWordNotFound()
         {
             var filter = new ProfanityFilter();

@@ -179,7 +179,7 @@ namespace ProfanityFilter
         public string CensorString(string sentence, char censorCharacter)
         {
             if (string.IsNullOrEmpty(sentence))
-            { 
+            {
                 return string.Empty;
             }
 
@@ -194,12 +194,18 @@ namespace ProfanityFilter
 
             // Catch whether multi-word profanities are in the white list filtered sentence.
             AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
-            
-
-            StringBuilder censored =  new StringBuilder(sentence);
-            StringBuilder tracker =  new StringBuilder(sentence);
 
 
+            StringBuilder censored = new StringBuilder(sentence);
+            StringBuilder tracker = new StringBuilder(sentence);
+
+            censored = CensorStringByProfanityList(censorCharacter, swearList, censored, tracker);
+
+            return censored.ToString();
+        }
+
+        private StringBuilder CensorStringByProfanityList(char censorCharacter, List<string> swearList, StringBuilder censored, StringBuilder tracker)
+        {
             foreach (string word in swearList.OrderByDescending(x => x.Length))
             {
                 (int, int, string)? result = (0, 0, "");
@@ -214,7 +220,7 @@ namespace ProfanityFilter
                         if (result != null)
                         {
                             if (result.Value.Item3 == word)
-                            {                                
+                            {
                                 for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                                 {
                                     censored[i] = censorCharacter;
@@ -226,7 +232,7 @@ namespace ProfanityFilter
                                 for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                                 {
                                     tracker[i] = censorCharacter;
-                                }                               
+                                }
                             }
                         }
                     } while (result != null);
@@ -237,7 +243,7 @@ namespace ProfanityFilter
                 }
             }
 
-            return censored.ToString();
+            return censored;
         }
 
         public (int, int, string)? GetCompleteWord(string toCheck, string profanity)
