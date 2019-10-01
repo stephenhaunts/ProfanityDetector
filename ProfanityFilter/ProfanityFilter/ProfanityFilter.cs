@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
@@ -195,14 +196,43 @@ namespace ProfanityFilter
             AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
             
 
-            string censored = sentence;
+            StringBuilder censored =  new StringBuilder(sentence);
 
             foreach (string word in swearList.OrderByDescending(x => x.Length))
             {
-                censored = censored.Replace(word, CreateCensoredString(word, censorCharacter));
+                (int, int, string)? result = (0, 0, "");
+                var multiWord = word.Split(' ');
+
+                if (multiWord.Length == 1)
+                {
+                    do
+                    {
+                        result = GetCompleteWord(censored.ToString(), word);
+
+                        if (result != null)
+                        {
+                            if (result.Value.Item3 == word)
+                            {
+                                // censored = censored.Replace(word, CreateCensoredString(word, censorCharacter));
+                                for (int i = result.Value.Item1; i < result.Value.Item2; i++)
+                                {
+                                    censored[i] = censorCharacter;
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    } while (result != null);
+                }
+                else
+                {
+                    censored = censored.Replace(word, CreateCensoredString(word, censorCharacter));
+                }
             }
 
-            return censored;
+            return censored.ToString();
         }
 
         public (int, int, string)? GetCompleteWord(string toCheck, string profanity)
@@ -212,15 +242,18 @@ namespace ProfanityFilter
                 return null;
             }
 
-            if (toCheck.ToLower(CultureInfo.InvariantCulture).Contains(profanity.ToLower(CultureInfo.InvariantCulture)))
+            string profanityLowerCase = profanity.ToLower(CultureInfo.InvariantCulture);
+            string toCheckLowerCase = toCheck.ToLower(CultureInfo.InvariantCulture);
+
+            if (toCheckLowerCase.Contains(profanityLowerCase))
             {
-                var startIndex = toCheck.IndexOf(profanity, StringComparison.Ordinal);
+                var startIndex = toCheckLowerCase.IndexOf(profanityLowerCase, StringComparison.Ordinal);
                 var endIndex = startIndex;
                 
                 // Work backwards in string to get to the start of the word.
                 while (startIndex > 0)
                 {
-                    if (toCheck[startIndex - 1] == ' ')
+                    if (toCheck[startIndex - 1] == ' ' || toCheck[startIndex - 1] == '.' || toCheck[startIndex - 1] == ',')
                     {
                         break;
                     }
@@ -232,7 +265,7 @@ namespace ProfanityFilter
                 // Work forwards to get to the end of the word.
                 while (endIndex < toCheck.Length)
                 {
-                    if (toCheck[endIndex] == ' ')
+                    if (toCheck[endIndex] == ' ' || toCheck[endIndex] == '.' || toCheck[endIndex] == ',')
                     {
                         break;
                     }
@@ -240,7 +273,7 @@ namespace ProfanityFilter
                     endIndex += 1;                    
                 }                
 
-                var enclosedWord = toCheck.Substring(startIndex, endIndex - startIndex);
+                var enclosedWord = toCheckLowerCase.Substring(startIndex, endIndex - startIndex);
 
                 return (startIndex, endIndex, enclosedWord.ToLower(CultureInfo.InvariantCulture));
             }
@@ -328,7 +361,7 @@ namespace ProfanityFilter
         {
             swearList.AddRange(
                 from string profanity in _profanities
-                where postWhiteListSentence.Contains(profanity)
+                where postWhiteListSentence.ToLower(CultureInfo.InvariantCulture).Contains(profanity)
                 select profanity);
         }
 

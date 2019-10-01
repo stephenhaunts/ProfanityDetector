@@ -340,6 +340,28 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOutNoWhiteList()
+        {
+            var filter = new ProfanityFilter();            
+
+            var censored = filter.CensorString("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", '*');
+            var result = "I ******* live in Scunthorpe and it is a **** place to live. I would much rather live in penistone you great big **** ****.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOutNoWhiteListMixedCase()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("I Fucking Live In Scunthorpe And It Is A Shit Place To Live. I Would Much Rather Live In Penistone You Great Big Cock Fuck.", '*');
+            var result = "I ******* Live In Scunthorpe And It Is A **** Place To Live. I Would Much Rather Live In Penistone You Great Big **** ****.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
         public void CensoredStringReturnsStringWithProfanitiesBleepedOut2()
         {
             var filter = new ProfanityFilter();
@@ -502,8 +524,8 @@ namespace ProfanityFilter.Tests.Unit
             var result = filter.GetCompleteWord("I totally hate living in Scunthorpe.", "cunt");
 
             Assert.AreEqual(result.Value.Item1, 25);
-            Assert.AreEqual(result.Value.Item2, 36);
-            Assert.AreEqual(result.Value.Item3, "scunthorpe.");
+            Assert.AreEqual(result.Value.Item2, 35);
+            Assert.AreEqual(result.Value.Item3, "scunthorpe");
         }
 
         [TestMethod]
