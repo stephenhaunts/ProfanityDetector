@@ -178,7 +178,7 @@ namespace ProfanityFilter
         public string CensorString(string sentence, char censorCharacter)
         {
             if (string.IsNullOrEmpty(sentence))
-            {
+            { 
                 return string.Empty;
             }
 
@@ -193,6 +193,7 @@ namespace ProfanityFilter
 
             // Catch whether multi-word profanities are in the white list filtered sentence.
             AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
+            
 
             string censored = sentence;
 
@@ -202,6 +203,66 @@ namespace ProfanityFilter
             }
 
             return censored;
+        }
+
+        public (int, int, string)? IsEnclosedProfanity(string toCheck, string profanity)
+        {
+            if (string.IsNullOrEmpty(toCheck))
+            {
+                return null;
+            }
+
+            if (toCheck.ToLower(CultureInfo.InvariantCulture).Contains(profanity.ToLower(CultureInfo.InvariantCulture)))
+            {
+                var startIndex = toCheck.IndexOf(profanity, StringComparison.Ordinal);
+                var endIndex = startIndex;
+                
+                // Work backwards in string to get to the start of the word.
+                while (true)
+                {
+                    if (startIndex > 0)
+                    {
+                        if (toCheck[startIndex - 1] != ' ')
+                        {
+                            startIndex -= 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }                                           
+              
+                // Work forwards to get to the end of the word.
+                while (true)
+                {
+                    if (endIndex < toCheck.Length)
+                    {
+                        if (toCheck[endIndex] != ' ')
+                        {
+                            endIndex += 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }                
+
+                var enclosedWord = toCheck.Substring(startIndex, endIndex - startIndex);
+
+                return (startIndex, endIndex, enclosedWord.ToLower(CultureInfo.InvariantCulture));
+            }
+
+            return null;
         }
 
         /// <summary>

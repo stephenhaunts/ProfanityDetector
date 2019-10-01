@@ -472,5 +472,98 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(1636, filter.Count);
         }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsScunthorpeRangeMidSentence()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("I live in Scunthorpe and it is full of twats", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 10);
+            Assert.AreEqual(result.Value.Item2, 20);
+            Assert.AreEqual(result.Value.Item3, "scunthorpe");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsScunthorpeRangeAtStartOfSentence()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("Scunthorpe is my favourite place and it is full of cunts.", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 0);
+            Assert.AreEqual(result.Value.Item2, 10);
+            Assert.AreEqual(result.Value.Item3, "scunthorpe");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsScunthorpeRangeAtEndOfSentence()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("I totally hate living in Scunthorpe.", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 25);
+            Assert.AreEqual(result.Value.Item2, 36);
+            Assert.AreEqual(result.Value.Item3, "scunthorpe.");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsScunthorpeRangeAtEndOfSentenceNoFullStop()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("I totally hate living in Scunthorpe", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 25);
+            Assert.AreEqual(result.Value.Item2, 35);
+            Assert.AreEqual(result.Value.Item3, "scunthorpe");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsCuntFromMidSentence()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("You are a cunt flap.", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 10);
+            Assert.AreEqual(result.Value.Item2, 14);
+            Assert.AreEqual(result.Value.Item3, "cunt");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsCuntFromSingleWordString()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("cunt", "cunt");
+
+            Assert.AreEqual(result.Value.Item1, 0);
+            Assert.AreEqual(result.Value.Item2, 4);
+            Assert.AreEqual(result.Value.Item3, "cunt");
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsNullIfWordNotFound()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("I am a banana and I like to jump.", "cunt");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsNullIfEmptyInputString()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity("", "cunt");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void IsEnclosedProfanityReturnsNullIfNullInputString()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.IsEnclosedProfanity(null, "cunt");
+
+            Assert.IsNull(result);
+        }
     }
 }
