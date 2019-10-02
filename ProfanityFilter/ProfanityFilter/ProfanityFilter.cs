@@ -256,37 +256,7 @@ namespace ProfanityFilter
                 // Work backwards in string to get to the start of the word.
                 while (startIndex > 0)
                 {
-                    if (toCheck[startIndex - 1] == ' ' ||
-                        toCheck[startIndex - 1] == '.' ||
-                        toCheck[startIndex - 1] == ',' ||
-                        toCheck[startIndex - 1] == ':' ||
-                        toCheck[startIndex - 1] == ';' ||
-                        toCheck[startIndex - 1] == '"' ||
-                        toCheck[startIndex - 1] == '@' ||
-                        toCheck[startIndex - 1] == '€' ||
-                        toCheck[startIndex - 1] == '£' ||
-                        toCheck[startIndex - 1] == '#' ||
-                        toCheck[startIndex - 1] == '$' ||
-                        toCheck[startIndex - 1] == '%' ||
-                        toCheck[startIndex - 1] == '^' ||
-                        toCheck[startIndex - 1] == '&' ||
-                        toCheck[startIndex - 1] == '*' ||
-                        toCheck[startIndex - 1] == '(' ||
-                        toCheck[startIndex - 1] == ')' ||
-                        toCheck[startIndex - 1] == '_' ||
-                        toCheck[startIndex - 1] == '-' ||
-                        toCheck[startIndex - 1] == '=' ||
-                        toCheck[startIndex - 1] == '+' ||
-                        toCheck[startIndex - 1] == '[' ||
-                        toCheck[startIndex - 1] == ']' ||
-                        toCheck[startIndex - 1] == '{' ||
-                        toCheck[startIndex - 1] == '}' ||                   
-                        toCheck[startIndex - 1] == '|' ||
-                        toCheck[startIndex - 1] == '\\' ||
-                        toCheck[startIndex - 1] == '/' ||
-                        toCheck[startIndex - 1] == '<' ||
-                        toCheck[startIndex - 1] == '>' ||
-                        toCheck[startIndex - 1] == '!')
+                    if (toCheck[startIndex - 1] == ' ' || char.IsPunctuation(toCheck[startIndex - 1]))             
                     {
                         break;
                     }
@@ -297,38 +267,9 @@ namespace ProfanityFilter
                 // Work forwards to get to the end of the word.
                 while (endIndex < toCheck.Length)
                 {
-                    if (toCheck[endIndex] == ' ' ||
-                        toCheck[endIndex] == '.' ||
-                        toCheck[endIndex] == ',' ||
-                        toCheck[endIndex] == ':' ||
-                        toCheck[endIndex] == ';' ||
-                        toCheck[endIndex] == '!' ||
-                        toCheck[endIndex] == '@' ||
-                        toCheck[endIndex] == '€' ||
-                        toCheck[endIndex] == '£' ||
-                        toCheck[endIndex] == '#' ||
-                        toCheck[endIndex] == '$' ||
-                        toCheck[endIndex] == '%' ||
-                        toCheck[endIndex] == '^' ||
-                        toCheck[endIndex] == '&' ||
-                        toCheck[endIndex] == '*' ||
-                        toCheck[endIndex] == '(' ||
-                        toCheck[endIndex] == ')' ||
-                        toCheck[endIndex] == '_' ||
-                        toCheck[endIndex] == '-' ||
-                        toCheck[endIndex] == '=' ||
-                        toCheck[endIndex] == '+' ||
-                        toCheck[endIndex] == '[' ||
-                        toCheck[endIndex] == ']' ||
-                        toCheck[endIndex] == '{' ||
-                        toCheck[endIndex] == '}' ||
-                        toCheck[endIndex] == '|' ||
-                        toCheck[endIndex] == '\\' ||
-                        toCheck[endIndex] == '/' ||
-                        toCheck[endIndex] == '<' ||
-                        toCheck[endIndex] == '>' ||
-                        toCheck[endIndex] == '!' ||
-                        toCheck[endIndex] == '"')
+                   
+
+                    if (toCheck[endIndex] == ' ' || char.IsPunctuation(toCheck[endIndex]))                    
                     {
                         break;
                     }
