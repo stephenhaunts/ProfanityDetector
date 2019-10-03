@@ -128,7 +128,7 @@ namespace ProfanityFilter
             // Catch whether multi-word profanities are in the white list filtered sentence.
             AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
 
-            // Deduplicate any partial matches, ie, if the word "twatting" is in a sentence, don't include "twat".
+            // Deduplicate any partial matches, ie, if the word "twatting" is in a sentence, don't include "twat" if part of the same word.
             if (removePartialMatches)
             {
                 swearList.RemoveAll(x => swearList.Any(y => x != y && y.Contains(x)));
