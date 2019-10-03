@@ -39,27 +39,37 @@ namespace ProfanityFilter
         private readonly IWhiteList _whiteList;
 
         /// <summary>
-        /// Return the white list;
+        /// Default constructor that loads up the default profanity list.
         /// </summary>
-        public IWhiteList WhiteList => WhiteList1;
-
-
-        public ProfanityFilter() : base()
+        public ProfanityFilter()
         {           
             _whiteList = new WhiteList();
         }
 
+        /// <summary>
+        /// Constructor overload that allows you to construct the filter with a customer
+        /// profanity list.
+        /// </summary>
+        /// <param name="profanityList">Array of words to add into the filter.</param>
         public ProfanityFilter(string[] profanityList) : base (profanityList)
         {         
             _whiteList = new WhiteList();
         }
 
+        /// <summary>
+        /// Constructor overload that allows you to construct the filter with a customer
+        /// profanity list.
+        /// </summary>
+        /// <param name="profanityList">List of words to add into the filter.</param>
         public ProfanityFilter(List<string> profanityList) : base(profanityList)
         {         
             _whiteList = new WhiteList();
         }
 
-        public IWhiteList WhiteList1 => _whiteList;
+        /// <summary>
+        /// Return the white list;
+        /// </summary>
+        public IWhiteList WhiteList => _whiteList;
 
         /// <summary>
         /// Check whether a specific word is in the profanity list. IsProfanity will first
@@ -76,7 +86,7 @@ namespace ProfanityFilter
             }
 
             // Check if the word is in the whitelist.
-            if (WhiteList1.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+            if (WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
             {
                 return false;
             }
@@ -84,6 +94,11 @@ namespace ProfanityFilter
             return _profanities.Contains(word.ToLower());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
         public ReadOnlyCollection<string> DetectAllProfanities(string sentence)
         {
             return DetectAllProfanities(sentence, false);
@@ -122,11 +137,24 @@ namespace ProfanityFilter
             return new ReadOnlyCollection<string>(FilterSwearListForCompleteWordsOnly(sentence, swearList).Distinct().ToList());
         }
 
+        /// <summary>
+        /// For any given string, censor any profanities from the list using the default
+        /// censoring character of an asterix.
+        /// </summary>
+        /// <param name="sentence">The string to censor.</param>
+        /// <returns></returns>
         public string CensorString(string sentence)
         {
             return CensorString(sentence, '*');
         }
 
+        /// <summary>
+        /// For any given string, censor any profanities from the list using the specified
+        /// censoring character.
+        /// </summary>
+        /// <param name="sentence">The string to censor.</param>
+        /// <param name="censorCharacter">The character to use for censoring.</param>
+        /// <returns></returns>
         public string CensorString(string sentence, char censorCharacter)
         {
             if (string.IsNullOrEmpty(sentence))
@@ -153,6 +181,18 @@ namespace ProfanityFilter
             return CensorStringByProfanityList(censorCharacter, swearList, censored, tracker).ToString();
         }
 
+        /// <summary>
+        /// For a given sentence, look for the specified profanity. If it is found, look to see
+        /// if it is part of a containing word. If it is, then return the containing work and the start
+        /// and end positions of that word in the string.
+        ///
+        /// For example, if the string contains "scunthorpe" and the passed in profanity is "cunt",
+        /// then this method will find "cunt" and work out that it is part of an enclosed word.
+        /// </summary>
+        /// <param name="toCheck">Sentence to check.</param>
+        /// <param name="profanity">Profanity to look for.</param>
+        /// <returns>Tuple of the following format (start character, end character, found enclosed word).
+        /// If no enclosed word is found then return null.</returns>
         public (int, int, string)? GetCompleteWord(string toCheck, string profanity)
         {
             if (string.IsNullOrEmpty(toCheck))
@@ -265,7 +305,6 @@ namespace ProfanityFilter
 
                                 for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                                 {
-
                                     tracker[i] = '*';
                                 }
                                 break;
@@ -273,7 +312,6 @@ namespace ProfanityFilter
 
                             for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                             {
-
                                 tracker[i] = '*';
                             }
                         }
@@ -295,7 +333,7 @@ namespace ProfanityFilter
             List<string> postWhiteList = new List<string>();
             foreach (string word in words)
             {
-                if (!WhiteList1.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                if (!WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
                 {
                     postWhiteList.Add(word);
                 }

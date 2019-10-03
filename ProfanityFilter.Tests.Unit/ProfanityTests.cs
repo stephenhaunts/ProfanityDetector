@@ -477,6 +477,38 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual(censored, result);
         }
 
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithSlashes()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("2 girls 1 cup, is my favourite twatting video.", '/');
+            var result = "/ ///// / ///, is my favourite //////// video.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithQuotes()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("2 girls 1 cup, is my favourite twatting video.", '\"');
+            var result = "\" \"\"\"\"\" \" \"\"\", is my favourite \"\"\"\"\"\"\"\" video.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsStringWithProfanitiesBleepedOut2WithExclaimationMark()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("2 girls 1 cup, is my favourite twatting video.", '!');
+            var result = "! !!!!! ! !!!, is my favourite !!!!!!!! video.";
+
+            Assert.AreEqual(censored, result);
+        }
 
         [TestMethod]
         public void CensoredStringReturnsEmptyString()

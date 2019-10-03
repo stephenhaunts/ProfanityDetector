@@ -152,7 +152,7 @@ namespace ProfanityFilter.Tests.Unit
             var filter = new ProfanityBase();
             int count = filter.Count;
 
-            Assert.AreEqual(count, 1636);
+            Assert.AreEqual(count, 1628);
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1628, filter.Count);
 
             filter.Clear();
 
@@ -172,11 +172,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1628, filter.Count);
 
             filter.RemoveProfanity("shit");
 
-            Assert.AreEqual(1635, filter.Count);
+            Assert.AreEqual(1627, filter.Count);
         }
 
         [TestMethod]
@@ -184,11 +184,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1628, filter.Count);
 
             Assert.IsTrue(filter.RemoveProfanity("shit"));
 
-            Assert.AreEqual(1635, filter.Count);
+            Assert.AreEqual(1627, filter.Count);
         }
 
         [TestMethod]
@@ -196,11 +196,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1628, filter.Count);
 
             Assert.IsFalse(filter.RemoveProfanity("fluffy"));
 
-            Assert.AreEqual(1636, filter.Count);
+            Assert.AreEqual(1628, filter.Count);
         }
     }
 }
