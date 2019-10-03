@@ -28,7 +28,6 @@ using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
 {
-
     /// <summary>
     /// 
     /// This class will detect profanity and racial slurs contained within some text and return an indication flag.

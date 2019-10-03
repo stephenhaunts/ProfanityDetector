@@ -31,7 +31,7 @@ namespace ProfanityFilter
         /// <summary>
         /// Constructor that initializes the standard profanity list.
         /// </summary>
-        protected ProfanityBase()
+        public ProfanityBase()
         {
             _profanities = new List<string>(_wordList);
         }
@@ -43,6 +43,11 @@ namespace ProfanityFilter
         /// <param name="profanityList">Array of words considered profanities.</param>
         protected ProfanityBase(string[] profanityList)
         {
+            if (profanityList == null)
+            {
+                throw new ArgumentNullException(nameof(profanityList));
+            }
+
             _profanities = new List<string>(profanityList);
         }
 
@@ -53,6 +58,11 @@ namespace ProfanityFilter
         /// <param name="profanityList">List of words considered profanities.</param>
         protected ProfanityBase(List<string> profanityList)
         {
+            if (profanityList == null)
+            {
+                throw new ArgumentNullException(nameof(profanityList));
+            }
+
             _profanities = profanityList;
         }
 
