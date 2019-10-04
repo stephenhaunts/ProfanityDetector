@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/stephenhaunts/ProfanityDetector</PackageProjectUrl>
     <PackageTags>Profanity Filter, Profanity Detector</PackageTags>
     <Title>Profanity Detector</Title>
-    <Description>Profanity Filter used to deteect or censor text in an application. You can use the inbuilt profanity list, or load up your organizations custom list.</Description>
+    <Description>Profanity Filter used to detect or censor text in an application. You can use the inbuilt profanity list, or load up your organizations custom list.</Description>
     <ReleaseVersion>0.1.1</ReleaseVersion>
   </PropertyGroup>
 
