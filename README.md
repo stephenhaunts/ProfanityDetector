@@ -30,6 +30,8 @@ dotnet add package Profanity.Detector --version 0.1.0
 
 # Example Usage
 
+_In all the example code, to avoid using too much profane language in the examples, I have censored someof the words with an '@' symbol. All the example code is shown correctly, without censorship, in the [unit tests](https://github.com/stephenhaunts/ProfanityDetector/tree/master/ProfanityFilter.Tests.Unit).
+
 The following are some example of the basic usage of the library. You first need to either download or clone the code from this repository and include it in your project, or include the nuget package [Profanity.Detector](https://www.nuget.org/packages/Profanity.Detector/)
 
 ## Check if a word is classed as a profanity
@@ -39,7 +41,7 @@ The simplest scenario is to check if a word exists in the profanity list. This i
 ```csharp
 // Return true is a bad word
 var filter = new ProfanityFilter();
-Assert.IsTrue(filter.IsProfanity("arsehole"));
+Assert.IsTrue(filter.IsProfanity("@rsehole"));
 
 // Return false if NOT a naughty word
 var filter = new ProfanityFilter();
@@ -52,10 +54,10 @@ The second scenario is returning a list of profanities from supplied string. Thi
 
 ```csharp
 var filter = new ProfanityFilter();
-var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
+var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite tw@tting video");
 Assert.AreEqual(3, swearList.Count);
 Assert.AreEqual("2 girls 1 cup", swearList[0]);
-Assert.AreEqual("twatting", swearList[1]);
+Assert.AreEqual("tw@tting", swearList[1]);
 ```
 
 ## Censoring a Sentence
@@ -65,7 +67,7 @@ The third scenario is to provide a string containing text tha potentialy has pro
 ```csharp
 var filter = new ProfanityFilter();
 
-var censored = filter.CensorString("Mary had a little shit lamb who was a little fucker.");
+var censored = filter.CensorString("Mary had a little sh@t lamb who was a little f@cker.");
 var result = "Mary had a little **** lamb who was a little ******.";
 
 Assert.AreEqual(censored, result);
@@ -73,7 +75,7 @@ Assert.AreEqual(censored, result);
 
 # The Scunthorpe Problem
 
-A common problem with profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem). This is where you get a false positive result from a profanity detector because a profanity pattern is found inside a non profane word. For example, with "scunthorpe" (which is a town in the United Kingdom), it will get reported as containing the word "c*nt". What this proganity detector library will do is allow you to guard against this problem in two ways. The first is by using a whitelist of words that are to be excluded from the profanity detector. This is covered in the next section.
+A common problem with profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem). This is where you get a false positive result from a profanity detector because a profanity pattern is found inside a non profane word. For example, with "scunthorpe" (which is a town in the United Kingdom), it will get reported as containing the word "c@nt". What this proganity detector library will do is allow you to guard against this problem in two ways. The first is by using a whitelist of words that are to be excluded from the profanity detector. This is covered in the next section.
 
 The second solution is to be a bit more inteligent about how we check in the string. What this library will do, in the scunthope example, is it will first detect the word "c*nt" in the string. Then the library will seek backwards and forward in the string to identify if that profanity is enclosed within another word. If it is, that enclosed word is checked against the profanity list. If that word is not in the list, which scunthorpe isn't, then the word is ignored. If that enclosed word is in the profanity list, then it will be reported as so. 
 
@@ -85,7 +87,7 @@ If there is a word in the profanity list that you don't consider a profanity, an
 var filter = new ProfanityFilter();
 filter.WhiteList.Add("tit");
 
-var swearList = filter.DetectAllProfanities("You are a complete twat and a total tit.", true);
+var swearList = filter.DetectAllProfanities("You are a complete tw@t and a total tit.", true);
 
 Assert.AreEqual(1, swearList.Count);
 Assert.AreEqual("twat", swearList[0]);  
@@ -98,10 +100,10 @@ There are a huge amount of words in the default list. The default list was put t
 ```csharp
 var filter = new ProfanityFilter();
 
-Assert.IsTrue(filter.IsProfanity("shit"));
-filter.RemoveProfanity("shit");
+Assert.IsTrue(filter.IsProfanity("sh@t"));
+filter.RemoveProfanity("sh@t");
 
-Assert.IsFalse(filter.IsProfanity("shit"));  
+Assert.IsFalse(filter.IsProfanity("sh@t"));  
 ```
 
 There may also be an occation where there is a word you want to include to the list that is not on the detault list. This can be easily done as in the following example. In this example we have deemed the word "fluffy" to be a profanity. We first check if it is a profanity, which returns false. Then we add "fluffy" to the list of profanities and check again which will return true.
