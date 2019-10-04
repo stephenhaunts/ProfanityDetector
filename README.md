@@ -192,12 +192,17 @@ Assert.AreEqual(3, filter.Count);
 # Frequently Asked Questions
 
 **(Q)** Why does word (x) appear in the list, I don't consider it a profanity?
+
 **(A)** The default list is compiled from lists I found on the internet that are allegedly used by some social media companies. On my first inspection of the list I did remove some words that I thought were not profane (in my opinion). It is possible I have missed some as the list is *HUGE*. It could also be that what is profane to one person, is not to another. 
 
 If you spot something that you want to challenge, raise an issue and I will take a look. In the meantime, if there is a word that you don't agree with being on the list, you can manually whitelist it, as demonstrated above, or insert your own list.
 
+
 **(Q)** Why have a profanity filter in the first place? Freedom of speech should not include censorship.
+
 **(A)** I also agree in freedom of speech and don't neccesarily like censorship, except content to children, or hate speech, but in a lot of organizations there are requirements to check for profanities in a users input. If you are working in this type of environment, and a lot of companies do this, then you have to implement it; which is why this library exists.
 
+
 **(Q)** My company has their own signed off list of profanities that needs to be censored on our system. Therefore I can't use the default list. Can I use my own.
+
 **(A)** Of course, many people asked for this, so you can insert your own array/list of profanities by passing them into the ProfanityFilter constructor. See the example easlier in this readme file.
