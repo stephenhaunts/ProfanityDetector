@@ -2,7 +2,7 @@
 
 This is a C# (.NET Standard 2.1) library for detecting profanities within a text string. The profanity list was compiled from lists from the internet that are allegedly used by social media sites for detecting profanities. This is useful if you want to detect anything naughty in some text and have those words reported.
 
-_The profanity list contains swearing, sexual acts, ratial slurs, sexist slurs and anything else that you can imagine._
+_The profanity list contains swearing, sexual acts, racial slurs, sexist slurs and anything else that you can imagine._
 _If you are easily offended, then **DO NOT** open the file called ProfanityList.cs_
 
 In this readme I will cover the following:
