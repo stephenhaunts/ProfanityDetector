@@ -91,7 +91,7 @@ namespace ProfanityFilter
                 return false;
             }
 
-            return _profanities.Contains(word.ToLower());
+            return _profanities.Contains(word.ToLower(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

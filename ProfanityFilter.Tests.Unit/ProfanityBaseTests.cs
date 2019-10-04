@@ -152,7 +152,7 @@ namespace ProfanityFilter.Tests.Unit
             var filter = new ProfanityBase();
             int count = filter.Count;
 
-            Assert.AreEqual(count, 1628);
+            Assert.AreEqual(count, 1626);
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1628, filter.Count);
+            Assert.AreEqual(1626, filter.Count);
 
             filter.Clear();
 
@@ -172,11 +172,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1628, filter.Count);
+            Assert.AreEqual(1626, filter.Count);
 
             filter.RemoveProfanity("shit");
 
-            Assert.AreEqual(1627, filter.Count);
+            Assert.AreEqual(1625, filter.Count);
         }
 
         [TestMethod]
@@ -184,11 +184,22 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1628, filter.Count);
+            Assert.AreEqual(1626, filter.Count);
 
             Assert.IsTrue(filter.RemoveProfanity("shit"));
 
-            Assert.AreEqual(1627, filter.Count);
+            Assert.AreEqual(1625, filter.Count);
+        }
+
+        [TestMethod]
+        public void RemoveDeletesAProfanityAndIsProfanitiyIgnoresIt()
+        {
+            var filter = new ProfanityFilter();
+
+            Assert.IsTrue(filter.IsProfanity("shit"));
+            filter.RemoveProfanity("shit");
+
+            Assert.IsFalse(filter.IsProfanity("shit"));
         }
 
         [TestMethod]
@@ -196,11 +207,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1628, filter.Count);
+            Assert.AreEqual(1626, filter.Count);
 
             Assert.IsFalse(filter.RemoveProfanity("fluffy"));
 
-            Assert.AreEqual(1628, filter.Count);
+            Assert.AreEqual(1626, filter.Count);
         }
     }
 }

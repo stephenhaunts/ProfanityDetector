@@ -4,10 +4,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+    <ReleaseVersion>0.1.1</ReleaseVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <NoStdLib></NoStdLib>
+    <NoStdLib>true</NoStdLib>
     <WarningsNotAsErrors></WarningsNotAsErrors>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>

@@ -194,6 +194,19 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void DetectAllProfanitiesBlocksWhitelist()
+        {
+            var filter = new ProfanityFilter();
+            filter.WhiteList.Add("tit");
+
+            var swearList = filter.DetectAllProfanities("You are a complete twat and a total tit.", true);
+
+            Assert.AreEqual(1, swearList.Count);
+            Assert.AreEqual("twat", swearList[0]);            
+        }
+
+
+        [TestMethod]
         public void DetectAllProfanitiesScunthorpeWithDuplicatesTurnedOff()
         {
             var filter = new ProfanityFilter();
@@ -203,7 +216,7 @@ namespace ProfanityFilter.Tests.Unit
             var swearList = filter.DetectAllProfanities("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", true);
 
             Assert.AreEqual(3, swearList.Count);
-            Assert.AreEqual("cock", swearList[1]);            
+            Assert.AreEqual("cock", swearList[1]);
             Assert.AreEqual("fucking", swearList[0]);
             Assert.AreEqual("shit", swearList[2]);
         }
