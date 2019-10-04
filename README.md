@@ -21,23 +21,12 @@ var filter = new ProfanityFilter();
 Assert.IsFalse(filter.IsProfanity("fluffy"));
 ```
 
-
-## Report the first profanity in a string
-
-```csharp
-// Return the word "shitty" from a sentence.
-var filter = new ProfanityFilter();
-var swearWord = filter.StringContainsFirstProfanity("Mary had a little shit lamb who was a little fucker.");
-Assert.AreEqual("shit", swearWord);
-```
-
 ## Return list of all profanities in a sentence
 
 ```csharp
 var filter = new ProfanityFilter();
 var swearList = filter.DetectAllProfanities("2 girls 1 cup is my favourite twatting video");
 Assert.AreEqual(3, swearList.Count);
-Assert.AreEqual("2 girls 1 cup", swearList[1]);
-Assert.AreEqual("twat", swearList[2]);
-Assert.AreEqual("twatting", swearList[0]);
+Assert.AreEqual("2 girls 1 cup", swearList[0]);
+Assert.AreEqual("twatting", swearList[1]);
 ```
