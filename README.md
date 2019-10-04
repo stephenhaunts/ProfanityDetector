@@ -206,3 +206,8 @@ If you spot something that you want to challenge, raise an issue and I will take
 **(Q)** My company has their own signed off list of profanities that needs to be censored on our system. Therefore I can't use the default list. Can I use my own.
 
 **(A)** Of course, many people asked for this, so you can insert your own array/list of profanities by passing them into the ProfanityFilter constructor. See the example easlier in this readme file.
+
+
+**(Q)** What is the user license to use the code for this library?
+
+**(A)** The code in the Profanity Detector is released under a permissive MIT license. This means you can do what you like with the code. I am not charging for the code, and you are free to clone and modify the code as you wish. This also means I am not liable for any of this code and it is provided as-is for you to use. Whilst I am not liable for the use of this code, if you do find an issue, please do raise a GitHub issue and I will take a look. Or you can fix it yourself and raise a pull request.
