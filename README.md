@@ -22,11 +22,11 @@ If you do not wish to download or clone this repository, then you can consume th
 
 To install via the package manager use the command (assuming version 0.1.0 of the library)
 
-Install-Package Profanity.Detector -Version 0.1.0
+Install-Package Profanity.Detector -Version 0.1.1
 
 Or via the command line
 
-dotnet add package Profanity.Detector --version 0.1.0
+dotnet add package Profanity.Detector --version 0.1.1
 
 # Example Usage
 
