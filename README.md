@@ -1,10 +1,10 @@
 # ProfanityDetector
 
-This is a C# (.NET Standard 2.0) library for detecting profanities within a text string. The profanity list was compiled from lists on the compiled from the internet that are allegedly used by social media sites for detecting profanities. This is useful if you want to detect anything naught in somee text and have those words reported.
+This is a C# (.NET Standard 2.1) library for detecting profanities within a text string. The profanity list was compiled from lists from the internet that are allegedly used by social media sites for detecting profanities. This is useful if you want to detect anything naughty in some text and have those words reported.
 
-The profanity list contains swearing, sexual acts, ratial slurs, sexist slurs and anything else that you can imagine.
+_*The profanity list contains swearing, sexual acts, ratial slurs, sexist slurs and anything else that you can imagine.*_
 
-If you are easily offended, then DO NOT open the file called ProfanityList.cs
+_*If you are easily offended, then DO NOT open the file called ProfanityList.cs*_
 
 In this readme I will cover the following:
 
