@@ -14,6 +14,7 @@ In this readme I will cover the following:
 * Whitelisting
 * Adding and Removing Profanties
 * Replacing the Profanitiy List
+* Frequently Asked Questions
 
 
 # Using the Library via Nuget
@@ -88,3 +89,5 @@ TBC
 # Replacing the Profanitiy List
 
 TBC
+
+# Frequently Asked Questions
