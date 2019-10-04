@@ -73,7 +73,9 @@ Assert.AreEqual(censored, result);
 
 # The Scunthorpe Problem
 
-A common problem with profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem).
+A common problem with profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem). This is where you get a false positive result from a profanity detector because a profanity pattern is found inside a non profane word. For example, with "scunthorpe" (which is a town in the United Kingdom), it will get reported as containing the word "c*nt". What this proganity detector library will do is allow you to guard against this problem in two ways. The first is by using a whitelist of words that are to be excluded from the profanity detector. This is covered in the next section.
+
+The second solution is to be a bit more inteligent about how we check in the string. What this library will do, in the scunthope example, is it will first detect the word "c*nt" in the string. Then the library will seek backwards and forward in the string to identify if that profanity is enclosed within another word. If it is, that enclosed word is checked against the profanity list. If that word is not in the list, which scunthorpe isn't, then the word is ignored. If that enclosed word is in the profanity list, then it will be reported as so. 
 
 # Whitelisting
 
