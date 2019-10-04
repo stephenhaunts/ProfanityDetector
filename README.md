@@ -8,18 +8,29 @@ If you are easily offended, then DO NOT open the file called ProfanityList.cs
 
 In this readme I will cover the following:
 
-- Nuget
-- Basic Usage
-- The Scunthorpe Problem
-- Whitelisting
-- Adding and Removing Profanties
-- Replacing the Profanitiy List
+* Using the Library via Nuget
+* Basic Usage
+* The Scunthorpe Problem
+* Whitelisting
+* Adding and Removing Profanties
+* Replacing the Profanitiy List
 
 
 # Using the Library via Nuget
 
+If you do not wish to download or clone this repository, then you can consume the profanity detector via [Nuget](https://www.nuget.org/packages/Profanity.Detector/).
+
+To install via the package manager use the command (assuming version 0.1.0 of the library)
+
+Install-Package Profanity.Detector -Version 0.1.0
+
+Or via the command line
+
+dotnet add package Profanity.Detector --version 0.1.0
+
 # Example Usage
 
+The following are some example of the basic usage of the library. You first need to either download or clone the code from this repository and include it in your project, or include the nuget package [Profanity.Detector](https://www.nuget.org/packages/Profanity.Detector/)
 
 ## Check if a word is classed as a profanity
 
@@ -62,7 +73,7 @@ Assert.AreEqual(censored, result);
 
 # The Scunthorpe Problem
 
-TBC
+A common problem with profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem).
 
 # Whitelisting
 
