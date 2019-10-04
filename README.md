@@ -80,11 +80,68 @@ The second solution is to be a bit more inteligent about how we check in the str
 
 # Whitelisting
 
-TBC
+If there is a word in the profanity list that you don't consider a profanity, and you want to allow it through, you can add that word to a whitelist, so if that word appears in the input string, it will be ignored. In the example below we have the sentence, "You are a complete twat and a total tit."). In this example we want to say that the word "tit" is acceptable, so it gets added to the whitelist, this means the only reported profanity for that sentence is the word "twat".
+
+```csharp
+var filter = new ProfanityFilter();
+filter.WhiteList.Add("tit");
+
+var swearList = filter.DetectAllProfanities("You are a complete twat and a total tit.", true);
+
+Assert.AreEqual(1, swearList.Count);
+Assert.AreEqual("twat", swearList[0]);  
+```
 
 # Adding and Removing Profanties
 
-TBC
+There are a huge amount of words in the default list. The default list was put together from multiple lists online, so I, the author of this library, didn't physically write the list. If you feel that a word or words in the list are not what you consider to be a profanity, you can remove them via code, like in the following example. In the example we first check that "shit" is a profanity, and this returns true. Then we remove "shit" from the list and check if it is a profanity again. This time it returns true as we have removed it. 
+
+```csharp
+var filter = new ProfanityFilter();
+
+Assert.IsTrue(filter.IsProfanity("shit"));
+filter.RemoveProfanity("shit");
+
+Assert.IsFalse(filter.IsProfanity("shit"));  
+```
+
+There may also be an occation where there is a word you want to include to the list that is not on the detault list. This can be easily done as in the following example. In this example we have deemed the word "fluffy" to be a profanity. We first check if it is a profanity, which returns false. Then we add "fluffy" to the list of profanities and check again which will return true.
+
+```csharp
+var filter = new ProfanityFilter();
+Assert.IsFalse(filter.IsProfanity("fluffy"));
+
+filter.AddProfanity("fluffy");
+Assert.IsTrue(filter.IsProfanity("fluffy")); 
+```
+
+You can also add an array of words to the list aswell if you want to add them in one go. This is demonstrated by the following example. Here we are adding three new words to the list as an array.
+
+```csharp
+string[] _wordList =
+{
+"wibble",
+"bibble",
+"bobble"
+};
+
+var filter = new ProfanityFilter();
+filter.AddProfanity(_wordList);
+```
+
+You can also directly add a List<string> instead of an array.
+  
+  ```csharp
+string[] _wordList =
+{
+"wibble",
+"bibble",
+"bobble"
+};
+
+var filter = new ProfanityFilter();
+filter.AddProfanity(new List<string>(_wordList));
+```
 
 # Replacing the Profanitiy List
 
