@@ -90,7 +90,7 @@ filter.WhiteList.Add("tit");
 var swearList = filter.DetectAllProfanities("You are a complete tw@t and a total tit.", true);
 
 Assert.AreEqual(1, swearList.Count);
-Assert.AreEqual("twat", swearList[0]);  
+Assert.AreEqual("tw@t", swearList[0]);  
 ```
 
 # Adding and Removing Profanties
