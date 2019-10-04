@@ -47,7 +47,7 @@ Assert.AreEqual("2 girls 1 cup", swearList[0]);
 Assert.AreEqual("twatting", swearList[1]);
 ```
 
-## Censoring a Centence
+## Censoring a Sentence
 
 The third scenario is to provide a string containing text tha potentialy has profane language, and censor the text by replacing naughty words with a designated character like an '*'.
 
