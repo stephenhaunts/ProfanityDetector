@@ -131,12 +131,12 @@ filter.AddProfanity(_wordList);
 
 You can also directly add a List<string> instead of an array.
   
-  ```csharp
+```csharp
 string[] _wordList =
 {
-"wibble",
-"bibble",
-"bobble"
+  "wibble",
+  "bibble",
+  "bobble"
 };
 
 var filter = new ProfanityFilter();
@@ -145,6 +145,49 @@ filter.AddProfanity(new List<string>(_wordList));
 
 # Replacing the Profanitiy List
 
-TBC
+While developing this library, I had many people reach out to me to say that their companies maintains a signed off and curated list of profanities that they have to check for and therefore can't use the default list build into this Profanity Detector. This is a great suggestion, so I have tweaked the libray to allow completly overriding the detault list and adding your own.
+
+In this first example we pass in an array of words into the ProfanityFilter constructor. This will stop the default list from being loaded and only insert these three words. This now means the profanity filter only contains three words, wibble, bibble, and bobble.
+
+```csharp
+string[] _wordList =
+{
+  "wibble",
+  "bibble",
+  "bobble"
+};
+
+IProfanityFilter filter = new ProfanityFilter(_wordList);
+Assert.AreEqual(3, filter.Count);
+```
+
+You can also insert the new word list as a List<string>.
+  
+```csharp
+string[] _wordList =
+{
+  "wibble",
+  "bibble",
+  "bobble"
+};
+
+IProfanityFilter filter = new ProfanityFilter(new List<string>(_wordList));
+Assert.AreEqual(3, filter.Count);
+```
+
+Another was you can do this is to construct the ProfanityFilter with the default constructor that loads the default list, but then manually clear the list and insert your own array or List<string>.
+
+```csharp
+string[] _wordList =
+{
+  "wibble",
+  "bibble",
+  "bobble"
+};
+
+IProfanityFilter filter = new ProfanityFilter();
+filter.Clear();
+Assert.AreEqual(3, filter.Count);
+```
 
 # Frequently Asked Questions
