@@ -30,7 +30,7 @@ dotnet add package Profanity.Detector --version 0.1.0
 
 # Example Usage
 
-_In all the example code, to avoid using too much profane language in the examples, I have censored someof the words with an '@' symbol. All the example code is shown correctly, without censorship, in the [unit tests](https://github.com/stephenhaunts/ProfanityDetector/tree/master/ProfanityFilter.Tests.Unit).
+_In all the example code, to avoid using too much profane language in the examples, I have censored some of the words with an '@' symbol. All the example code is shown correctly, without censorship, in the [unit tests](https://github.com/stephenhaunts/ProfanityDetector/tree/master/ProfanityFilter.Tests.Unit)._
 
 The following are some example of the basic usage of the library. You first need to either download or clone the code from this repository and include it in your project, or include the nuget package [Profanity.Detector](https://www.nuget.org/packages/Profanity.Detector/)
 
