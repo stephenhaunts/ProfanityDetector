@@ -169,7 +169,7 @@ namespace ProfanityFilter
 
             var words = sentence.Split(' ');
             var postWhiteList = FilterWordListByWhiteList(words);
-            List<string> swearList = new List<string>();
+            var swearList = new List<string>();
 
             // Catch whether multi-word profanities are in the white list filtered sentence.
             AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
