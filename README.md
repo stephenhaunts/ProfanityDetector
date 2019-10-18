@@ -1,6 +1,6 @@
 # ProfanityDetector
 
-This is a C# (.NET Standard 2.1) library for detecting profanities within a text string. The profanity list was compiled from lists from the internet that is allegedly used by social media sites for detecting profanities (although I can't confirm that). A library like this is useful if you want to detect anything profane in some text and have those words reported.
+This is a C# (.NET Standard 2.0) library for detecting profanities within a text string. The profanity list was compiled from lists from the internet that is allegedly used by social media sites for detecting profanities (although I can't confirm that). A library like this is useful if you want to detect anything profane in some text and have those words reported.
 
 _The profanity list contains swearing, sexual acts, racial slurs, sexist slurs, and anything else that you can imagine. If you are easily offended, then **DO NOT** open the file called ProfanityList.cs_
 
@@ -19,13 +19,13 @@ In this readme I will cover the following:
 
 If you do not wish to download or clone this repository, then you can consume the profanity detector via [Nuget](https://www.nuget.org/packages/Profanity.Detector/).
 
-To install via the package manager use the command (assuming version 0.1.1 of the library)
+To install via the package manager use the command (assuming version 0.1.2 of the library)
 
-Install-Package Profanity.Detector -Version 0.1.1
+Install-Package Profanity.Detector -Version 0.1.2
 
 Or via the command line
 
-dotnet add package Profanity.Detector --version 0.1.1
+dotnet add package Profanity.Detector --version 0.1.2
 
 # Example Usage
 
