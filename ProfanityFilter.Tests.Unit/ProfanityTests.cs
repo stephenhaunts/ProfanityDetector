@@ -546,6 +546,63 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void CensoredStringReturnsCensoredStringWithTrailingSpace()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("Hello you little fuck ");
+            var result = "Hello you little **** ";
+
+           Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringThatIsOnlySpaces()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("     ");
+            var result = "     ";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringThatisOnlyNonAlphaNumericCharacters()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("!@£$*&^&$%^$£%£$@£$£@$£$%%^");
+            var result = "!@£$*&^&$%^$£%£$@£$£@$£$%%^";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        //[TestMethod]
+        //public void CensoredStringReturnsCensoredStringMotherfucker()
+        //{
+        //    var filter = new ProfanityFilter();
+
+        //    var censored = filter.CensorString("You are a motherfucker1.");
+        //    var result = "You are a ************1.";
+
+        //    Assert.AreEqual(censored, result);
+        //}
+
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringonEmptytString()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("");
+            var result = "";
+
+            Assert.AreEqual(censored, result);
+        }
+
+
+        [TestMethod]
         public void GetCompleteWordReturnsScunthorpeRangeMidSentence()
         {
             var filter = new ProfanityFilter();

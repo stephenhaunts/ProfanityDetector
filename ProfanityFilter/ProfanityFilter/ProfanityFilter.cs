@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
@@ -162,12 +163,12 @@ namespace ProfanityFilter
                 return string.Empty;
             }
 
-            string noPunctuation = sentence;
+            string noPunctuation = sentence.Trim();
             noPunctuation = noPunctuation.ToLower();
-            noPunctuation = noPunctuation.Replace(".", "");
-            noPunctuation = noPunctuation.Replace(",", "");
 
-            var words = sentence.Split(' ');
+            noPunctuation = Regex.Replace(noPunctuation, @"[^\w\s]", "");
+
+            var words = noPunctuation.Split(' ');
             var postWhiteList = FilterWordListByWhiteList(words);
             var swearList = new List<string>();
 
@@ -333,9 +334,12 @@ namespace ProfanityFilter
             List<string> postWhiteList = new List<string>();
             foreach (string word in words)
             {
-                if (!WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                if (!string.IsNullOrEmpty(word))
                 {
-                    postWhiteList.Add(word);
+                    if (!WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                    {
+                        postWhiteList.Add(word);
+                    }
                 }
             }
 
