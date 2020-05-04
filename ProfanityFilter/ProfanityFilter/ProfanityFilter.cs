@@ -158,6 +158,19 @@ namespace ProfanityFilter
         /// <returns></returns>
         public string CensorString(string sentence, char censorCharacter)
         {
+            return CensorString(sentence, censorCharacter, false);
+        }
+
+        /// <summary>
+        /// For any given string, censor any profanities from the list using the specified
+        /// censoring character.
+        /// </summary>
+        /// <param name="sentence">The string to censor.</param>
+        /// <param name="censorCharacter">The character to use for censoring.</param>
+        /// <param name="ignoreNumbers">Ignore any numbers that appear in a word.</param>
+        /// <returns></returns>
+        public string CensorString(string sentence, char censorCharacter, bool ignoreNumbers)
+        {
             if (string.IsNullOrEmpty(sentence))
             {
                 return string.Empty;
@@ -169,6 +182,7 @@ namespace ProfanityFilter
             noPunctuation = Regex.Replace(noPunctuation, @"[^\w\s]", "");
 
             var words = noPunctuation.Split(' ');
+
             var postWhiteList = FilterWordListByWhiteList(words);
             var swearList = new List<string>();
 
@@ -179,7 +193,7 @@ namespace ProfanityFilter
             StringBuilder censored = new StringBuilder(sentence);
             StringBuilder tracker = new StringBuilder(sentence);
 
-            return CensorStringByProfanityList(censorCharacter, swearList, censored, tracker).ToString();
+            return CensorStringByProfanityList(censorCharacter, swearList, censored, tracker, ignoreNumbers).ToString();
         }
 
         /// <summary>
@@ -239,7 +253,7 @@ namespace ProfanityFilter
             return null;
         }
 
-        private StringBuilder CensorStringByProfanityList(char censorCharacter, List<string> swearList, StringBuilder censored, StringBuilder tracker)
+        private StringBuilder CensorStringByProfanityList(char censorCharacter, List<string> swearList, StringBuilder censored, StringBuilder tracker, bool ignoreNumeric)
         {
             foreach (string word in swearList.OrderByDescending(x => x.Length))
             {
@@ -254,7 +268,14 @@ namespace ProfanityFilter
 
                         if (result != null)
                         {
-                            if (result.Value.Item3 == word)
+                            string filtered = result.Value.Item3;
+
+                            if (ignoreNumeric)
+                            {
+                                filtered = Regex.Replace(result.Value.Item3, @"[\d-]", string.Empty);
+                            }                           
+
+                            if (filtered == word)
                             {
                                 for (int i = result.Value.Item1; i < result.Value.Item2; i++)
                                 {

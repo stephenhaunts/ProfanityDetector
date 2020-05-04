@@ -31,6 +31,7 @@ namespace ProfanityFilter.Interfaces
         IWhiteList WhiteList { get; }
         string CensorString(string sentence);
         string CensorString(string sentence, char censorCharacter);
+        string CensorString(string sentence, char censorCharacter, bool ignoreNumbers);
         (int, int, string)? GetCompleteWord(string toCheck, string profanity);
 
         void AddProfanity(string profanity);

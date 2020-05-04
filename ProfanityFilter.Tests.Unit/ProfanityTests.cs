@@ -578,17 +578,129 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual(censored, result);
         }
 
-        //[TestMethod]
-        //public void CensoredStringReturnsCensoredStringMotherfucker()
-        //{
-        //    var filter = new ProfanityFilter();
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker()
+        {
+            var filter = new ProfanityFilter();
 
-        //    var censored = filter.CensorString("You are a motherfucker1.");
-        //    var result = "You are a ************1.";
+            var censored = filter.CensorString("You are a motherfucker1", '*', true);
+            var result = "You are a *************";
 
-        //    Assert.AreEqual(censored, result);
-        //}
+            Assert.AreEqual(censored, result);
+        }
 
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker2()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a motherfucker123", '*', true);
+            var result = "You are a ***************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker3()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a 1motherfucker", '*', true);
+            var result = "You are a *************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker4()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a 123motherfucker", '*', true);
+            var result = "You are a ***************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker5()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a 123motherfucker123", '*', true);
+            var result = "You are a ******************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker6()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("motherfucker1", '*', true);
+            var result = "*************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker7()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("motherfucker1  ", '*', true);
+            var result = "*************  ";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker8()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("  motherfucker1", '*', true);
+            var result = "  *************";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker9()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("  motherfucker1  ", '*', true);
+            var result = "  *************  ";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker10()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a motherfucker1 and a fucking twat3.", '*', true);
+            var result = "You are a ************* and a ******* *****.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker11()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("You are a motherfucker1 and a 'fucking twat3'.", '*', true);
+            var result = "You are a ************* and a '******* *****'.";
+
+            Assert.AreEqual(censored, result);
+        }
 
         [TestMethod]
         public void CensoredStringReturnsCensoredStringonEmptytString()
