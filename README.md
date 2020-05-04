@@ -1,3 +1,5 @@
+![.NET Core](https://github.com/stephenhaunts/ProfanityDetector/workflows/.NET%20Core/badge.svg)
+
 # ProfanityDetector
 
 This is a C# (.NET Standard 2.0) library for detecting profanities within a text string. The profanity list was compiled from lists from the internet that is allegedly used by social media sites for detecting profanities (although I can't confirm that). A library like this is useful if you want to detect anything profane in some text and have those words reported.
