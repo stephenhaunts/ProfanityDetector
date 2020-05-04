@@ -703,6 +703,17 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
+        public void CensoredStringReturnsCensoredStringMotherfucker12()
+        {
+            var filter = new ProfanityFilter();
+
+            var censored = filter.CensorString("I've had 10 beers, and you are a motherfucker1 and a 'fucking twat3'.", '*', true);
+            var result = "I've had 10 beers, and you are a ************* and a '******* *****'.";
+
+            Assert.AreEqual(censored, result);
+        }
+
+        [TestMethod]
         public void CensoredStringReturnsCensoredStringonEmptytString()
         {
             var filter = new ProfanityFilter();
