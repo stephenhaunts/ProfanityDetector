@@ -19,13 +19,13 @@ In this readme I will cover the following:
 
 If you do not wish to download or clone this repository, then you can consume the profanity detector via [Nuget](https://www.nuget.org/packages/Profanity.Detector/).
 
-To install via the package manager use the command (assuming version 0.1.3 of the library)
+To install via the package manager use the command (assuming version 0.1.4 of the library)
 
-Install-Package Profanity.Detector -Version 0.1.3
+Install-Package Profanity.Detector -Version 0.1.4
 
 Or via the command line
 
-dotnet add package Profanity.Detector --version 0.1.3
+dotnet add package Profanity.Detector --version 0.1.4
 
 # Example Usage
 
