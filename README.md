@@ -1,4 +1,4 @@
-![.NET Core](https://github.com/stephenhaunts/ProfanityDetector/workflows/.NET%20Core/badge.svg)
+
 
 # ProfanityDetector
 
