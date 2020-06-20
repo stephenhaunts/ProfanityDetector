@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore ../../ProfanityFilter/ProfanityFilter.sln
+      run: dotnet restore ../../../ProfanityFilter/ProfanityFilter.sln
     - name: Build
-      run: dotnet build ../../ProfanityFilter/ProfanityFilter.sln --configuration Release --no-restore
+      run: dotnet build ../../../ProfanityFilter/ProfanityFilter.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test ../../ProfanityFilter/ProfanityFilter.sln --no-restore --verbosity normal
+      run: dotnet test ../../../ProfanityFilter/ProfanityFilter.sln --no-restore --verbosity normal
