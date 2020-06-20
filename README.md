@@ -12,7 +12,7 @@ In this readme I will cover the following:
 * Basic Usage
 * The Scunthorpe Problem
 * Whitelisting
-* Adding and Removing Profanties
+* Adding and Removing Profanties 
 * Replacing the Profanitiy List
 * Frequently Asked Questions
 
