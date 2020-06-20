@@ -17,7 +17,7 @@ In this readme I will cover the following:
 * Frequently Asked Questions
 
 
-# Using the Library via Nuget
+# Using the Library via Nuget 
 
 If you do not wish to download or clone this repository, then you can consume the profanity detector via [Nuget](https://www.nuget.org/packages/Profanity.Detector/).
 
