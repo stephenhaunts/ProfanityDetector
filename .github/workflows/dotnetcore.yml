@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
-    - name: Install dependencies
- 
     - name: Build
       run: dotnet build /ProfanityFilter/ProfanityFilter.sln --configuration Release --no-restore
     - name: Test
