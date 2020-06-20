@@ -28,7 +28,7 @@ namespace ProfanityFilter.Interfaces
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches);
         
-        IWhiteList WhiteList { get; }
+        IAllowList AllowList { get; }
         string CensorString(string sentence);
         string CensorString(string sentence, char censorCharacter);
         string CensorString(string sentence, char censorCharacter, bool ignoreNumbers);

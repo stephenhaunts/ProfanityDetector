@@ -37,14 +37,13 @@ namespace ProfanityFilter
     /// </summary>
     public class ProfanityFilter : ProfanityBase, IProfanityFilter
     {
-        private readonly IWhiteList _whiteList;
 
         /// <summary>
         /// Default constructor that loads up the default profanity list.
         /// </summary>
         public ProfanityFilter()
         {           
-            _whiteList = new WhiteList();
+            AllowList = new AllowList();
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">Array of words to add into the filter.</param>
         public ProfanityFilter(string[] profanityList) : base (profanityList)
         {         
-            _whiteList = new WhiteList();
+            AllowList = new AllowList();
         }
 
         /// <summary>
@@ -64,17 +63,17 @@ namespace ProfanityFilter
         /// <param name="profanityList">List of words to add into the filter.</param>
         public ProfanityFilter(List<string> profanityList) : base(profanityList)
         {         
-            _whiteList = new WhiteList();
+            AllowList = new AllowList();
         }
 
         /// <summary>
-        /// Return the white list;
+        /// Return the allow list;
         /// </summary>
-        public IWhiteList WhiteList => _whiteList;
+        public IAllowList AllowList { get; }
 
         /// <summary>
         /// Check whether a specific word is in the profanity list. IsProfanity will first
-        /// check if the word exists on the whitelist. If it is on the whitelist, then false
+        /// check if the word exists on the allow list. If it is on the allow list, then false
         /// will be returned.
         /// </summary>
         /// <param name="word">The word to check in the profanity list.</param>
@@ -86,8 +85,8 @@ namespace ProfanityFilter
                 return false;
             }
 
-            // Check if the word is in the whitelist.
-            if (WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+            // Check if the word is in the allow list.
+            if (AllowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
             {
                 return false;
             }
@@ -123,11 +122,11 @@ namespace ProfanityFilter
             sentence = sentence.Replace(",", "");
 
             var words = sentence.Split(' ');
-            var postWhiteList = FilterWordListByWhiteList(words);
+            var postAllowList = FilterWordListByAllowList(words);
             List<string> swearList = new List<string>();
 
-            // Catch whether multi-word profanities are in the white list filtered sentence.
-            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
+            // Catch whether multi-word profanities are in the allow list filtered sentence.
+            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postAllowList));
 
             // Deduplicate any partial matches, ie, if the word "twatting" is in a sentence, don't include "twat" if part of the same word.
             if (removePartialMatches)
@@ -183,11 +182,11 @@ namespace ProfanityFilter
 
             var words = noPunctuation.Split(' ');
 
-            var postWhiteList = FilterWordListByWhiteList(words);
+            var postAllowList = FilterWordListByAllowList(words);
             var swearList = new List<string>();
 
-            // Catch whether multi-word profanities are in the white list filtered sentence.
-            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postWhiteList));
+            // Catch whether multi-word profanities are in the allow list filtered sentence.
+            AddMultiWordProfanities(swearList, ConvertWordListToSentence(postAllowList));
 
 
             StringBuilder censored = new StringBuilder(sentence);
@@ -350,41 +349,41 @@ namespace ProfanityFilter
             return filteredSwearList;
         }
 
-        private List<string> FilterWordListByWhiteList(string[] words)
+        private List<string> FilterWordListByAllowList(string[] words)
         {
-            List<string> postWhiteList = new List<string>();
+            List<string> postAllowList = new List<string>();
             foreach (string word in words)
             {
                 if (!string.IsNullOrEmpty(word))
                 {
-                    if (!WhiteList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
+                    if (!AllowList.Contains(word.ToLower(CultureInfo.InvariantCulture)))
                     {
-                        postWhiteList.Add(word);
+                        postAllowList.Add(word);
                     }
                 }
             }
 
-            return postWhiteList;
+            return postAllowList;
         }
 
-        private static string ConvertWordListToSentence(List<string> postWhiteList)
+        private static string ConvertWordListToSentence(List<string> postAllowList)
         {
-            // Reconstruct sentence excluding whitelisted words.
-            string postWhiteListSentence = string.Empty;
+            // Reconstruct sentence excluding allow listed words.
+            string postAllowListSentence = string.Empty;
 
-            foreach (string w in postWhiteList)
+            foreach (string w in postAllowList)
             {
-                postWhiteListSentence = postWhiteListSentence + w + " ";
+                postAllowListSentence = postAllowListSentence + w + " ";
             }
 
-            return postWhiteListSentence;
+            return postAllowListSentence;
         }
 
-        private void AddMultiWordProfanities(List<string> swearList, string postWhiteListSentence)
+        private void AddMultiWordProfanities(List<string> swearList, string postAllowListSentence)
         {
             swearList.AddRange(
                 from string profanity in _profanities
-                where postWhiteListSentence.ToLower(CultureInfo.InvariantCulture).Contains(profanity)
+                where postAllowListSentence.ToLower(CultureInfo.InvariantCulture).Contains(profanity)
                 select profanity);
         }
 

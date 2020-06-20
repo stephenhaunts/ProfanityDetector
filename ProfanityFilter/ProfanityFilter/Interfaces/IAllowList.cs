@@ -22,9 +22,9 @@ using System.Collections.ObjectModel;
 
 namespace ProfanityFilter.Interfaces
 {
-    public interface IWhiteList
+    public interface IAllowList
     {
-        void Add(string wordToWhitelist);
+        void Add(string wordToAllowlist);
         bool Contains(string wordToCheck);
         bool Remove(string wordToRemove);
         void Clear();

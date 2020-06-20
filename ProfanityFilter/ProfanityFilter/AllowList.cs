@@ -25,41 +25,41 @@ using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter
 {
-    public class WhiteList : IWhiteList
+    public class AllowList : IAllowList
     {
-        List<string> _whiteList;
+        List<string> _allowList;
 
-        public WhiteList()
+        public AllowList()
         {
-            _whiteList = new List<string>();
+            _allowList = new List<string>();
         }
 
         /// <summary>
-        /// Return an instance of a read only collection containing whitelist
+        /// Return an instance of a read only collection containing allow list
         /// </summary>
         public ReadOnlyCollection<string> ToList
         {
             get
             {
-                return new ReadOnlyCollection<string>(_whiteList);
+                return new ReadOnlyCollection<string>(_allowList);
             }
         }
 
         /// <summary>
-        /// Add a word to the profanity whitelist. This means a word that is in the whitelist
+        /// Add a word to the profanity allow list. This means a word that is in the allow list
         /// can be ignored. All words are treated as case insensitive.
         /// </summary>
-        /// <param name="wordToWhitelist">The word that you want to whitelist.</param>
-        public void Add(string wordToWhitelist)
+        /// <param name="wordToAllowlist">The word that you want to allow list.</param>
+        public void Add(string wordToAllowlist)
         {
-            if (string.IsNullOrEmpty(wordToWhitelist))
+            if (string.IsNullOrEmpty(wordToAllowlist))
             {
-                throw new ArgumentNullException(nameof(wordToWhitelist));
+                throw new ArgumentNullException(nameof(wordToAllowlist));
             }
 
-            if (!_whiteList.Contains(wordToWhitelist.ToLower(CultureInfo.InvariantCulture)))
+            if (!_allowList.Contains(wordToAllowlist.ToLower(CultureInfo.InvariantCulture)))
             {
-                _whiteList.Add(wordToWhitelist.ToLower(CultureInfo.InvariantCulture));
+                _allowList.Add(wordToAllowlist.ToLower(CultureInfo.InvariantCulture));
             }
         }
 
@@ -75,31 +75,31 @@ namespace ProfanityFilter
                 throw new ArgumentNullException(nameof(wordToCheck));
             }
 
-            return _whiteList.Contains(wordToCheck.ToLower(CultureInfo.InvariantCulture));
+            return _allowList.Contains(wordToCheck.ToLower(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Return the number of items in the whitelist.
+        /// Return the number of items in the allow list.
         /// </summary>
-        /// <returns>The number of items in the whitelist.</returns>
+        /// <returns>The number of items in the allow list.</returns>
         public int Count
         {
             get
             {
-                return _whiteList.Count;
+                return _allowList.Count;
             }
         }
 
         /// <summary>
-        /// Remove all words from the whitelist.
+        /// Remove all words from the allow list.
         /// </summary>  
         public void Clear()
         {
-            _whiteList.Clear();
+            _allowList.Clear();
         }
 
         /// <summary>
-        /// Remove a word from the profanity whitelist. All words are treated as case insensitive.
+        /// Remove a word from the profanity allow list. All words are treated as case insensitive.
         /// </summary>
         /// <param name="wordToRemove">The word that you want to use</param>
         /// <returns>True if the word is successfuly removes, False otherwise.</returns>
@@ -110,7 +110,7 @@ namespace ProfanityFilter
                 throw new ArgumentNullException(nameof(wordToRemove));
             }
 
-            return _whiteList.Remove(wordToRemove.ToLower(CultureInfo.InvariantCulture));
+            return _allowList.Remove(wordToRemove.ToLower(CultureInfo.InvariantCulture));
         }
     }
 }
