@@ -11,7 +11,7 @@ In this readme I will cover the following:
 * Using the Library via Nuget
 * Basic Usage
 * The Scunthorpe Problem
-* Whitelisting
+* Profanityh allow listing
 * Adding and Removing Profanties 
 * Replacing the Profanitiy List
 * Frequently Asked Questions
@@ -76,17 +76,17 @@ Assert.AreEqual(censored, result);
 
 # The Scunthorpe Problem
 
-A common problem with the profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem). This is where you get a false-positive result from a profanity detector because a profanity pattern is found inside a non-profane word. For example, with "Scunthorpe" (which is a town in the United Kingdom), it will get reported as containing the word "c@nt". What this profanity detector library will do is allow you to guard against this problem in two ways. The first is by using a whitelist of words that are to be excluded from the profanity detector. This is covered in the next section.
+A common problem with the profanity detector is solving what is called the [Scunthorpe Problem](https://en.wikipedia.org/wiki/Scunthorpe_problem). This is where you get a false-positive result from a profanity detector because a profanity pattern is found inside a non-profane word. For example, with "Scunthorpe" (which is a town in the United Kingdom), it will get reported as containing the word "c@nt". What this profanity detector library will do is allow you to guard against this problem in two ways. The first is by using an allow list of words that are to be excluded from the profanity detector. This is covered in the next section.
 
 The second solution is to be a bit more intelligent about how we check in the string. What this library will do, in the Scunthorpe example, is it will first detect the word "c*nt" in the line. Then the library will seek backward and forward in the string to identify if that profanity is enclosed within another word. If it is, that enclosed word is checked against the profanity list. If that word is not in the list, which Scunthorpe isn't, then the word is ignored. If that enclosed word is in the profanity list, then it will be reported as so.
 
-# Whitelisting
+# Allow listing
 
-If there is a word in the profanity list that you don't consider a profanity, and you want to allow it through, you can add that word to a whitelist. If that word appears in the input string, it will be ignored. In the example below, we have the sentence, "You are a complete twat and a total tit."). In this example, we want to say that the word "tit" is acceptable, so it gets added to the whitelist, this means the only reported profanity for that sentence is the word "tw@t".
+If there is a word in the profanity list that you don't consider a profanity, and you want to allow it through, you can add that word to an allow list. If that word appears in the input string, it will be ignored. In the example below, we have the sentence, "You are a complete twat and a total tit."). In this example, we want to say that the word "tit" is acceptable, so it gets added to the allow list, this means the only reported profanity for that sentence is the word "tw@t".
 
 ```csharp
 var filter = new ProfanityFilter();
-filter.WhiteList.Add("tit");
+filter.AllowList.Add("tit");
 
 var swearList = filter.DetectAllProfanities("You are a complete tw@t and a total tit.", true);
 
@@ -198,7 +198,7 @@ Assert.AreEqual(3, filter.Count);
 
 **(A)** The default list is compiled from lists I found on the internet that is allegedly used by some social media companies. On my first inspection of the list, I did remove some words that I thought were not profane (in my opinion). I may have missed some as the list is *HUGE*. It could also be that what is profane to one person, is not to another. 
 
-If you spot something that you want to challenge, raise an issue, and I will take a look. In the meantime, if there is a word that you don't agree with being on the list, you can manually whitelist it, as demonstrated above, or insert your own list.
+If you spot something that you want to challenge, raise an issue, and I will take a look. In the meantime, if there is a word that you don't agree with being on the list, you can manually add it to the allow list, as demonstrated above, or insert your own list.
 
 
 **(Q)** Why have a profanity filter in the first place? Freedom of speech should not include censorship.
