@@ -1,6 +1,6 @@
 ﻿/*
 MIT License
-Copyright (c) 2019 
+Copyright (c) 2019
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -30,7 +30,7 @@ using ProfanityFilter.Interfaces;
 namespace ProfanityFilter
 {
     /// <summary>
-    /// 
+    ///
     /// This class will detect profanity and racial slurs contained within some text and return an indication flag.
     /// All words are treated as case insensitive.
     ///
@@ -42,7 +42,7 @@ namespace ProfanityFilter
         /// Default constructor that loads up the default profanity list.
         /// </summary>
         public ProfanityFilter()
-        {           
+        {
             AllowList = new AllowList();
         }
 
@@ -52,7 +52,7 @@ namespace ProfanityFilter
         /// </summary>
         /// <param name="profanityList">Array of words to add into the filter.</param>
         public ProfanityFilter(string[] profanityList) : base (profanityList)
-        {         
+        {
             AllowList = new AllowList();
         }
 
@@ -62,7 +62,7 @@ namespace ProfanityFilter
         /// </summary>
         /// <param name="profanityList">List of words to add into the filter.</param>
         public ProfanityFilter(List<string> profanityList) : base(profanityList)
-        {         
+        {
             AllowList = new AllowList();
         }
 
@@ -95,7 +95,7 @@ namespace ProfanityFilter
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sentence"></param>
         /// <returns></returns>
@@ -132,7 +132,7 @@ namespace ProfanityFilter
             if (removePartialMatches)
             {
                 swearList.RemoveAll(x => swearList.Any(y => x != y && y.Contains(x)));
-            }            
+            }
 
             return new ReadOnlyCollection<string>(FilterSwearListForCompleteWordsOnly(sentence, swearList).Distinct().ToList());
         }
@@ -221,35 +221,69 @@ namespace ProfanityFilter
             {
                 var startIndex = toCheckLowerCase.IndexOf(profanityLowerCase, StringComparison.Ordinal);
                 var endIndex = startIndex;
-                
+
                 // Work backwards in string to get to the start of the word.
                 while (startIndex > 0)
                 {
-                    if (toCheck[startIndex - 1] == ' ' || char.IsPunctuation(toCheck[startIndex - 1]))             
+                    if (toCheck[startIndex - 1] == ' ' || char.IsPunctuation(toCheck[startIndex - 1]))
                     {
                         break;
                     }
-                    
-                    startIndex -= 1;               
-                }                                           
-              
+
+                    startIndex -= 1;
+                }
+
                 // Work forwards to get to the end of the word.
                 while (endIndex < toCheck.Length)
                 {
-                   
-
-                    if (toCheck[endIndex] == ' ' || char.IsPunctuation(toCheck[endIndex]))                    
+                    if (toCheck[endIndex] == ' ' || char.IsPunctuation(toCheck[endIndex]))
                     {
                         break;
                     }
-                   
-                    endIndex += 1;                    
-                }                
-            
+
+                    endIndex += 1;
+                }
+
                 return (startIndex, endIndex, toCheckLowerCase.Substring(startIndex, endIndex - startIndex).ToLower(CultureInfo.InvariantCulture));
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Check whether a given term matches an entry in the profanity list. ContainsProfanity will first
+        /// check if the word exists on the allow list. If it is on the allow list, then false
+        /// will be returned.
+        /// </summary>
+        /// <param name="term">Term to check.</param>
+        /// <returns>True if the term contains a profanity, False otherwise.</returns>
+        public bool ContainsProfanity(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+            {
+                return false;
+            }
+
+            List<string> potentialProfanities = _profanities.Where(word => word.Length <= term.Length).ToList();
+            
+            // We might have a very short phrase coming in, resulting in no potential matches even before the regex
+            if (potentialProfanities.Count == 0)
+            {
+                return false;
+            }
+
+            Regex regex = new Regex(string.Format(@"(?:{0})", string.Join("|", potentialProfanities), RegexOptions.IgnoreCase));
+
+            foreach (Match profanity in regex.Matches(term))
+            {
+                // if any matches are found and aren't in the allowed list, we can return true here without checking further
+                if (!AllowList.Contains(profanity.Value.ToLower(CultureInfo.InvariantCulture)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private StringBuilder CensorStringByProfanityList(char censorCharacter, List<string> swearList, StringBuilder censored, StringBuilder tracker, bool ignoreNumeric)
@@ -272,7 +306,7 @@ namespace ProfanityFilter
                             if (ignoreNumeric)
                             {
                                 filtered = Regex.Replace(result.Value.Item3, @"[\d-]", string.Empty);
-                            }                           
+                            }
 
                             if (filtered == word)
                             {
