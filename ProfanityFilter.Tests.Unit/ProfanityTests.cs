@@ -828,5 +828,57 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        public void ContainsProfanityReturnsFalseIfNullOrEmptyInputString(string input)
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity(input);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsTrueWhenProfanityExists()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("Scunthorpe");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsTrueWhenMultipleProfanitiesExist()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("Scuntarsefuckhorpe");
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsFalseWhenMultipleProfanitiesExistAndAreAllowed()
+        {
+            var filter = new ProfanityFilter();
+            filter.AllowList.Add("cunt");
+            filter.AllowList.Add("arse");
+
+            var result = filter.ContainsProfanity("Scuntarsehorpe");
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsFalseWhenProfanityDoesNotExist()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("Ireland");
+
+            Assert.IsFalse(result);
+        }
     }
 }

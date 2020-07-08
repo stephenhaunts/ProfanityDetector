@@ -24,9 +24,10 @@ namespace ProfanityFilter.Interfaces
 {
     public interface IProfanityFilter
     {
-        bool IsProfanity(string word);        
+        bool IsProfanity(string word);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence);
         ReadOnlyCollection<string> DetectAllProfanities(string sentence, bool removePartialMatches);
+        bool ContainsProfanity(string term);
         
         IAllowList AllowList { get; }
         string CensorString(string sentence);
