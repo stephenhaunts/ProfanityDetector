@@ -880,5 +880,23 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsFalseWhenProfanityIsAaa()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("aaa");
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsTrueWhenProfanityIsADollarDollar()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("a$$");
+
+            Assert.IsTrue(result);
+        }
     }
 }
