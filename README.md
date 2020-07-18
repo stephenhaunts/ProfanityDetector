@@ -18,6 +18,10 @@ In this readme I will cover the following:
 
 # Release notes
 
+0.1.7 : Contains a community contributed bug fix to a regular expression.
+
+0.1.6 : Contains a community contribution to add a new method, ContainsProfanity, that will check for a profanity without the Scunthorpe checking.
+
 0.1.5 : Update API to remove references to a white list and instead rename it to an allow list. If you install this newget package you will need to update the method class references for the white list. No functionality has changed.
 
 0.1.4 : Fixed issues #5 and #6
@@ -27,13 +31,13 @@ In this readme I will cover the following:
 
 If you do not wish to download or clone this repository, then you can consume the profanity detector via [Nuget](https://www.nuget.org/packages/Profanity.Detector/).
 
-To install via the package manager use the command (assuming version 0.1.6 of the library)
+To install via the package manager use the command (assuming version 0.1.7 of the library)
 
-Install-Package Profanity.Detector -Version 0.1.6
+Install-Package Profanity.Detector -Version 0.1.7
 
 Or via the command line
 
-dotnet add package Profanity.Detector --version 0.1.6
+dotnet add package Profanity.Detector --version 0.1.7
 
 # Example Usage
 
