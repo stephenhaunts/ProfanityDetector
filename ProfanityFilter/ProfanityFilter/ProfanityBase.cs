@@ -126,6 +126,52 @@ namespace ProfanityFilter
         }
 
         /// <summary>
+        /// Remove a list of profanities from the current loaded list of profanities.
+        /// </summary>
+        /// <param name="profanities">The list of profanities to remove from the list.</param>
+        /// <returns>True if the profanities were removed. False otherwise.</returns>
+        public bool RemoveProfanity(List<string> profanities)
+        {
+            if (profanities == null)
+            {
+                throw new ArgumentNullException(nameof(profanities));
+            }
+
+            foreach (string naughtyWord in profanities)
+            {
+                if (!RemoveProfanity(naughtyWord))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Remove an array of profanities from the current loaded list of profanities.
+        /// </summary>
+        /// <param name="profanities">The array of profanities to remove from the list.</param>
+        /// <returns>True if the profanities were removed. False otherwise.</returns>
+        public bool RemoveProfanity(string[] profanities)
+        {
+            if (profanities == null)
+            {
+                throw new ArgumentNullException(nameof(profanities));
+            }
+
+            foreach (string naughtyWord in profanities)
+            {
+                if (!RemoveProfanity(naughtyWord))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Remove all profanities from the current loaded list.
         /// </summary>
         public void Clear()

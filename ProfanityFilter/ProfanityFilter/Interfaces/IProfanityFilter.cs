@@ -40,6 +40,9 @@ namespace ProfanityFilter.Interfaces
         void AddProfanity(List<string> profanityList);
 
         bool RemoveProfanity(string profanity);
+        bool RemoveProfanity(List<string> profanities);
+        bool RemoveProfanity(string [] profanities);
+
         void Clear();
 
         int Count { get; }

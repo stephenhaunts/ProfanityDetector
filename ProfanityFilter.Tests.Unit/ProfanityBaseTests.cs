@@ -213,5 +213,66 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(1626, filter.Count);
         }
+
+
+        [TestMethod]
+        public void RemoveListDeletesProfanitiesFromPrimaryList()
+        {
+            var filter = new ProfanityBase();
+
+            Assert.AreEqual(1626, filter.Count);
+
+            List<string> listOfProfanitiesToRemove = new List<string>
+            {
+                "shit",
+                "fuck",
+                "cock"
+            };
+
+            Assert.IsTrue(filter.RemoveProfanity(listOfProfanitiesToRemove));
+
+            Assert.AreEqual(1623, filter.Count);
+        }
+
+        [TestMethod]
+        public void RemoveArrayDeletesProfanitiesFromPrimaryList()
+        {
+            var filter = new ProfanityBase();
+
+            Assert.AreEqual(1626, filter.Count);
+
+            string []listOfProfanitiesToRemove = new string[]
+            {
+                "shit",
+                "fuck",
+                "cock"
+            };
+
+            Assert.IsTrue(filter.RemoveProfanity(listOfProfanitiesToRemove));
+
+            Assert.AreEqual(1623, filter.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveProfanityThrowsArgumentNullExceptionIfListNull()
+        {
+            var filter = new ProfanityBase();
+
+            List<string> listOfProfanitiesToRemove = null;
+
+            filter.RemoveProfanity(listOfProfanitiesToRemove);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveProfanityThrowsArgumentNullExceptionIfArrayNull()
+        {
+            var filter = new ProfanityBase();
+
+            string[] listOfProfanitiesToRemove = null;
+
+            filter.RemoveProfanity(listOfProfanitiesToRemove);
+        }
     }
 }
