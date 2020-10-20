@@ -152,7 +152,7 @@ namespace ProfanityFilter.Tests.Unit
             var filter = new ProfanityBase();
             int count = filter.Count;
 
-            Assert.AreEqual(count, 1626);
+            Assert.AreEqual(count, 1615);
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             filter.Clear();
 
@@ -172,11 +172,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             filter.RemoveProfanity("shit");
 
-            Assert.AreEqual(1625, filter.Count);
+            Assert.AreEqual(1614, filter.Count);
         }
 
         [TestMethod]
@@ -184,11 +184,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             Assert.IsTrue(filter.RemoveProfanity("shit"));
 
-            Assert.AreEqual(1625, filter.Count);
+            Assert.AreEqual(1614, filter.Count);
         }
 
         [TestMethod]
@@ -207,11 +207,11 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             Assert.IsFalse(filter.RemoveProfanity("fluffy"));
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
         }
 
 
@@ -220,7 +220,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             List<string> listOfProfanitiesToRemove = new List<string>
             {
@@ -231,7 +231,7 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsTrue(filter.RemoveProfanity(listOfProfanitiesToRemove));
 
-            Assert.AreEqual(1623, filter.Count);
+            Assert.AreEqual(1612, filter.Count);
         }
 
         [TestMethod]
@@ -239,7 +239,7 @@ namespace ProfanityFilter.Tests.Unit
         {
             var filter = new ProfanityBase();
 
-            Assert.AreEqual(1626, filter.Count);
+            Assert.AreEqual(1615, filter.Count);
 
             string []listOfProfanitiesToRemove = new string[]
             {
@@ -250,7 +250,7 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsTrue(filter.RemoveProfanity(listOfProfanitiesToRemove));
 
-            Assert.AreEqual(1623, filter.Count);
+            Assert.AreEqual(1612, filter.Count);
         }
 
         [TestMethod]
