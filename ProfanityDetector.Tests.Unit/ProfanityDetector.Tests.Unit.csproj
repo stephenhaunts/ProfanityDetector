@@ -18,11 +18,10 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ProfanityFilter\ProfanityFilter\ProfanityDetector.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProfanityDetector\ProfanityDetector\ProfanityDetector.csproj" />
   </ItemGroup>
 </Project>
