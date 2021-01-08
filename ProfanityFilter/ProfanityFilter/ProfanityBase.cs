@@ -22,7 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ProfanityFilter
+namespace ProfanityDetector
 {
     public partial class ProfanityBase
     {

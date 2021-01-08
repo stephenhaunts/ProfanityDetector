@@ -25,9 +25,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using ProfanityFilter.Interfaces;
+using ProfanityDetector.Interfaces;
 
-namespace ProfanityFilter
+namespace ProfanityDetector
 {
     /// <summary>
     ///
@@ -276,8 +276,7 @@ namespace ProfanityFilter
 
             foreach (Match profanity in regex.Matches(term))
             {
-                // if any matches are found and aren't in the allowed list, we can return true here without checking further
-                if (!AllowList.Contains(profanity.Value.ToLower(CultureInfo.InvariantCulture)))
+                if (IsProfanity(profanity.Value))
                 {
                     return true;
                 }

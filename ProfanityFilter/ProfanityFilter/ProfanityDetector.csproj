@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>Profanity.Detector</PackageId>
+    <PackageVersion>0.1.8</PackageVersion>
+    <Authors>Stephen Haunts</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseUrl>https://github.com/stephenhaunts/ProfanityDetector/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Owners>Stephen Haunts</Owners>
+    <PackageProjectUrl>https://github.com/stephenhaunts/ProfanityDetector</PackageProjectUrl>
+    <PackageTags>Profanity Filter, Profanity Detector</PackageTags>
+    <Title>Profanity Detector</Title>
+    <Description>Profanity Filter used to detect or censor text in an application. You can use the inbuilt profanity list, or load up your organizations custom list.</Description>
+    <ReleaseVersion>0.1.2</ReleaseVersion>
+    <AssemblyName>ProfanityDetector</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+</Project>
