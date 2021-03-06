@@ -969,8 +969,6 @@ namespace ProfanityFilter
              "lemon party",
              "LEN",
              "leper",
-             "lesbian",
-             "lesbians",
              "lesbo",
              "lesbos",
              "lez",
