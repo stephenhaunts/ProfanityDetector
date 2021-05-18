@@ -21,9 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using ProfanityFilter.Interfaces;
+using ProfanityDetector.Interfaces;
 
-namespace ProfanityFilter
+namespace ProfanityDetector
 {
     public class AllowList : IAllowList
     {

@@ -21,9 +21,9 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProfanityFilter.Interfaces;
+using ProfanityDetector.Interfaces;
 
-namespace ProfanityFilter.Tests.Unit
+namespace ProfanityDetector.Tests.Unit
 {
     [TestClass]
     public class ProfanityBaseTests
