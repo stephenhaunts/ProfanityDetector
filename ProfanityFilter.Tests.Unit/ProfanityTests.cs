@@ -21,10 +21,10 @@ SOFTWARE.
 using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProfanityFilter;
-using ProfanityFilter.Interfaces;
+using ProfanityDetector;
+using ProfanityDetector.Interfaces;
 
-namespace ProfanityFilter.Tests.Unit
+namespace ProfanityDetector.Tests.Unit
 {
     [TestClass]
     public class ProfanityTests

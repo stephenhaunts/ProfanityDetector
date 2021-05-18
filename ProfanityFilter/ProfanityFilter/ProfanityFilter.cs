@@ -25,9 +25,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using ProfanityFilter.Interfaces;
+using ProfanityDetector.Interfaces;
 
-namespace ProfanityFilter
+namespace ProfanityDetector
 {
     /// <summary>
     ///

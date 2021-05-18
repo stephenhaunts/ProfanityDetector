@@ -20,7 +20,7 @@ SOFTWARE.
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace ProfanityFilter.Interfaces
+namespace ProfanityDetector.Interfaces
 {
     public interface IProfanityFilter
     {
