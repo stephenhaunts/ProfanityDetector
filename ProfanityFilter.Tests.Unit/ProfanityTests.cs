@@ -898,5 +898,14 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void ContainsProfanityReturnsTrueWhenProfanityIsVariableCase()
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity("Fuck");
+
+            Assert.IsTrue(result);
+        }
     }
 }
