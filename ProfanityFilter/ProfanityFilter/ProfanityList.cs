@@ -821,7 +821,6 @@ namespace ProfanityFilter
              "gspot",
              "g-spot",
              "gtfo",
-             "guido",
              "guro",
              "h0m0",
              "h0mo",
