@@ -898,5 +898,17 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        [DataRow("ASS")]
+        [DataRow("Ass")]
+        [DataRow("A$$")]
+        public void ContainsProfanityReturnsTrueForWordsWithUppercase(string input)
+        {
+            var filter = new ProfanityFilter();
+            var result = filter.ContainsProfanity(input);
+
+            Assert.IsTrue(result);
+        }
     }
 }
