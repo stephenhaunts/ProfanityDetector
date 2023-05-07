@@ -17,6 +17,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using System.Collections.Generic;
+
 namespace ProfanityFilter
 {
     /// <summary>
@@ -27,7 +29,7 @@ namespace ProfanityFilter
     /// </summary>
     public partial class ProfanityBase
     {
-        private readonly string[] _wordList =
+        private readonly HashSet<string> _wordList = new HashSet<string>()
         {
              "2 girls 1 cup",
              "2 girls one cup",
