@@ -753,6 +753,7 @@ namespace ProfanityFilter
              "fux",
              "fux0r",
              "fvck",
+             "fvked",
              "fxck",
              "gae",
              "gai",
