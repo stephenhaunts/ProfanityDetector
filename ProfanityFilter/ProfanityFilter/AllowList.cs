@@ -32,7 +32,16 @@ namespace ProfanityFilter
 
         public AllowList()
         {
-            _allowList = new List<string>();
+            _allowList = new List<string>
+            {
+                "\bолеговн.*\b",
+                "\bгребля\b",
+                "\b.*(С|с)ергей.*\b",
+                "\b.*к(о|а)манд.*\b",
+                "\b.*л(о|а)х(о|а)трон.*\b",
+                "\bхул(е|и)ган\b",
+                "\b.*м(а|о)нд(а|о)рин.*\b",
+            };
         }
 
         /// <summary>
