@@ -1,6 +1,6 @@
 ﻿/*
 MIT License
-Copyright (c) 2019 
+Copyright (c) 2019
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -43,10 +43,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">Array of words considered profanities.</param>
         protected ProfanityBase(string[] profanityList)
         {
-            if (profanityList == null)
-            {
-                throw new ArgumentNullException(nameof(profanityList));
-            }
+            if (profanityList == null) throw new ArgumentNullException(nameof(profanityList));
 
             _profanities = new List<string>(profanityList);
         }
@@ -58,10 +55,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">List of words considered profanities.</param>
         protected ProfanityBase(List<string> profanityList)
         {
-            if (profanityList == null)
-            {
-                throw new ArgumentNullException(nameof(profanityList));
-            }
+            if (profanityList == null) throw new ArgumentNullException(nameof(profanityList));
 
             _profanities = profanityList;
         }
@@ -72,10 +66,7 @@ namespace ProfanityFilter
         /// <param name="profanity">The profanity to add.</param>
         public void AddProfanity(string profanity)
         {
-            if (string.IsNullOrEmpty(profanity))
-            {
-                throw new ArgumentNullException(nameof(profanity));
-            }
+            if (string.IsNullOrEmpty(profanity)) throw new ArgumentNullException(nameof(profanity));
 
             _profanities.Add(profanity);
         }
@@ -87,10 +78,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">The array of profanities to add.</param>
         public void AddProfanity(string[] profanityList)
         {
-            if (profanityList == null)
-            {
-                throw new ArgumentNullException(nameof(profanityList));
-            }
+            if (profanityList == null) throw new ArgumentNullException(nameof(profanityList));
 
             _profanities.AddRange(profanityList);
         }
@@ -102,10 +90,7 @@ namespace ProfanityFilter
         /// <param name="profanityList">The list of profanities to add.</param>
         public void AddProfanity(List<string> profanityList)
         {
-            if (profanityList == null)
-            {
-                throw new ArgumentNullException(nameof(profanityList));
-            }
+            if (profanityList == null) throw new ArgumentNullException(nameof(profanityList));
 
             _profanities.AddRange(profanityList);
         }
@@ -117,10 +102,7 @@ namespace ProfanityFilter
         /// <returns>True of the profanity was removed. False otherwise.</returns>
         public bool RemoveProfanity(string profanity)
         {
-            if (string.IsNullOrEmpty(profanity))
-            {
-                throw new ArgumentNullException(nameof(profanity));
-            }
+            if (string.IsNullOrEmpty(profanity)) throw new ArgumentNullException(nameof(profanity));
 
             return _profanities.Remove(profanity.ToLower(CultureInfo.InvariantCulture));
         }
@@ -132,18 +114,11 @@ namespace ProfanityFilter
         /// <returns>True if the profanities were removed. False otherwise.</returns>
         public bool RemoveProfanity(List<string> profanities)
         {
-            if (profanities == null)
-            {
-                throw new ArgumentNullException(nameof(profanities));
-            }
+            if (profanities == null) throw new ArgumentNullException(nameof(profanities));
 
-            foreach (string naughtyWord in profanities)
-            {
+            foreach (var naughtyWord in profanities)
                 if (!RemoveProfanity(naughtyWord))
-                {
                     return false;
-                }
-            }
 
             return true;
         }
@@ -155,18 +130,11 @@ namespace ProfanityFilter
         /// <returns>True if the profanities were removed. False otherwise.</returns>
         public bool RemoveProfanity(string[] profanities)
         {
-            if (profanities == null)
-            {
-                throw new ArgumentNullException(nameof(profanities));
-            }
+            if (profanities == null) throw new ArgumentNullException(nameof(profanities));
 
-            foreach (string naughtyWord in profanities)
-            {
+            foreach (var naughtyWord in profanities)
                 if (!RemoveProfanity(naughtyWord))
-                {
                     return false;
-                }
-            }
 
             return true;
         }
@@ -182,12 +150,6 @@ namespace ProfanityFilter
         /// <summary>
         /// Return the number of profanities in the system.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return _profanities.Count;
-            }
-        }
+        public int Count => _profanities.Count;
     }
 }

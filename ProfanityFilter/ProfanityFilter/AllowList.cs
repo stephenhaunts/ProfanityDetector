@@ -1,6 +1,6 @@
 ﻿/*
 MIT License
-Copyright (c) 2019 
+Copyright (c) 2019
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -17,6 +17,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,11 +28,20 @@ namespace ProfanityFilter
 {
     public class AllowList : IAllowList
     {
-        List<string> _allowList;
+        private readonly List<string> _allowList;
 
         public AllowList()
         {
-            _allowList = new List<string>();
+            _allowList = new List<string>
+            {
+                "\bолеговн.*\b",
+                "\bгребля\b",
+                "\b.*(С|с)ергей.*\b",
+                "\b.*к(о|а)манд.*\b",
+                "\b.*л(о|а)х(о|а)трон.*\b",
+                "\bхул(е|и)ган\b",
+                "\b.*м(а|о)нд(а|о)рин.*\b",
+            };
         }
 
         /// <summary>
@@ -52,15 +62,10 @@ namespace ProfanityFilter
         /// <param name="wordToAllowlist">The word that you want to allow list.</param>
         public void Add(string wordToAllowlist)
         {
-            if (string.IsNullOrEmpty(wordToAllowlist))
-            {
-                throw new ArgumentNullException(nameof(wordToAllowlist));
-            }
+            if (string.IsNullOrEmpty(wordToAllowlist)) throw new ArgumentNullException(nameof(wordToAllowlist));
 
             if (!_allowList.Contains(wordToAllowlist.ToLower(CultureInfo.InvariantCulture)))
-            {
                 _allowList.Add(wordToAllowlist.ToLower(CultureInfo.InvariantCulture));
-            }
         }
 
         /// <summary>
@@ -70,10 +75,7 @@ namespace ProfanityFilter
         /// <returns></returns>
         public bool Contains(string wordToCheck)
         {
-            if (string.IsNullOrEmpty(wordToCheck))
-            {
-                throw new ArgumentNullException(nameof(wordToCheck));
-            }
+            if (string.IsNullOrEmpty(wordToCheck)) throw new ArgumentNullException(nameof(wordToCheck));
 
             return _allowList.Contains(wordToCheck.ToLower(CultureInfo.InvariantCulture));
         }
@@ -82,13 +84,7 @@ namespace ProfanityFilter
         /// Return the number of items in the allow list.
         /// </summary>
         /// <returns>The number of items in the allow list.</returns>
-        public int Count
-        {
-            get
-            {
-                return _allowList.Count;
-            }
-        }
+        public int Count => _allowList.Count;
 
         /// <summary>
         /// Remove all words from the allow list.
@@ -105,10 +101,7 @@ namespace ProfanityFilter
         /// <returns>True if the word is successfuly removes, False otherwise.</returns>
         public bool Remove(string wordToRemove)
         {
-            if (string.IsNullOrEmpty(wordToRemove))
-            {
-                throw new ArgumentNullException(nameof(wordToRemove));
-            }
+            if (string.IsNullOrEmpty(wordToRemove)) throw new ArgumentNullException(nameof(wordToRemove));
 
             return _allowList.Remove(wordToRemove.ToLower(CultureInfo.InvariantCulture));
         }
