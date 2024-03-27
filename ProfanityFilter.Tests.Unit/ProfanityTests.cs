@@ -104,7 +104,7 @@ namespace ProfanityFilter.Tests.Unit
         }
 
         [TestMethod]
-        public void DetectAllProfanitiesReturnsNulListForEmptyInput()
+        public void DetectAllProfanitiesReturnsNullListForEmptyInput()
         {
             var filter = new ProfanityFilter();
             var swearList = filter.DetectAllProfanities(null);
@@ -329,7 +329,7 @@ namespace ProfanityFilter.Tests.Unit
             filter.AllowList.Add("scunthorpe");
             filter.AllowList.Add("penistone");
 
-            var censored = filter.CensorString("I fucking live in Scunthorpe and it is a shit place to live. I would much rather live in penistone you great big cock fuck.", '*');
+            var censored = filter.CensorString("Выдать заказ лоху", '*');
             var result = "I ******* live in Scunthorpe and it is a **** place to live. I would much rather live in penistone you great big **** ****.";
 
             Assert.AreEqual(censored, result);

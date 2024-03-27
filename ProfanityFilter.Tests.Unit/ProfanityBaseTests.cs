@@ -42,7 +42,7 @@ namespace ProfanityFilter.Tests.Unit
             {
                "fuck",
                "shit",
-               "bollocks"
+                "bollocks"
             };
 
             IProfanityFilter filter = new ProfanityFilter(_wordList);
@@ -62,9 +62,9 @@ namespace ProfanityFilter.Tests.Unit
         {
             string[] _wordList =
             {
-               "fuck",
-               "shit",
-               "bollocks"
+                "fuck",
+                "shit",
+                "bollocks"
             };
 
             IProfanityFilter filter = new ProfanityFilter(new List<string>(_wordList));
@@ -85,7 +85,7 @@ namespace ProfanityFilter.Tests.Unit
         public void AddProfanityThrowsArgumentNullExceptionForEmptyProfanityString()
         {
             var filter = new ProfanityBase();
-            filter.AddProfanity((string)string.Empty);
+            filter.AddProfanity(string.Empty);
         }
 
         [TestMethod]
@@ -111,9 +111,9 @@ namespace ProfanityFilter.Tests.Unit
         {
             string[] _wordList =
             {
-               "fuck",
-               "shit",
-               "bollocks"
+                "fuck",
+                "shit",
+                "bollocks"
             };
 
             var filter = new ProfanityBase();
@@ -131,9 +131,9 @@ namespace ProfanityFilter.Tests.Unit
         {
             string[] _wordList =
             {
-               "fuck",
-               "shit",
-               "bollocks"
+                "fuck",
+                "shit",
+                "bollocks"
             };
 
             var filter = new ProfanityBase();
@@ -150,7 +150,7 @@ namespace ProfanityFilter.Tests.Unit
         public void ReturnCountForDetaultProfanityList()
         {
             var filter = new ProfanityBase();
-            int count = filter.Count;
+            var count = filter.Count;
 
             Assert.AreEqual(count, 1615);
         }
@@ -214,7 +214,6 @@ namespace ProfanityFilter.Tests.Unit
             Assert.AreEqual(1615, filter.Count);
         }
 
-
         [TestMethod]
         public void RemoveListDeletesProfanitiesFromPrimaryList()
         {
@@ -222,7 +221,7 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(1615, filter.Count);
 
-            List<string> listOfProfanitiesToRemove = new List<string>
+            var listOfProfanitiesToRemove = new List<string>
             {
                 "shit",
                 "fuck",
@@ -241,7 +240,7 @@ namespace ProfanityFilter.Tests.Unit
 
             Assert.AreEqual(1615, filter.Count);
 
-            string []listOfProfanitiesToRemove = new string[]
+            string[] listOfProfanitiesToRemove =
             {
                 "shit",
                 "fuck",

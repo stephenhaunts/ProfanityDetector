@@ -20,7 +20,6 @@ SOFTWARE.
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProfanityFilter;
 using ProfanityFilter.Interfaces;
 
 namespace ProfanityFilter.Tests.Unit
